@@ -17,6 +17,6 @@ func addAuthsRouters(rg *gin.RouterGroup) {
 			log.Printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", user.Username)
 			log.Default().Fatal(err)
 		}
-		log.Printf(user.Password)
+		log.Printf(">>>>>>>>>>>请求成功! 用户名:", user.Username, "密码:", user.Password)
 	})
 }
