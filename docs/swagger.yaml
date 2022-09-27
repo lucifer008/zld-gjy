@@ -1,19 +1,32 @@
+definitions:
+  models.Users:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
-  /example/helloworld:
-    get:
+  /auths/login:
+    post:
       consumes:
       - application/json
-      description: do ping
+      description: 登录
+      parameters:
+      - description: 登录参数
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.Users'
       produces:
       - application/json
       responses:
         "200":
           description: OK
-          schema:
-            type: string
-      summary: ping example
+      summary: 登录接口
       tags:
-      - example
+      - ops 认证
 swagger: "2.0"

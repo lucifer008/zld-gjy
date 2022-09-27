@@ -10,17 +10,16 @@ import (
 type AuthsHandler struct {
 }
 
-// @BasePath /api/v1
-
-// PingExample godoc
-// @Summary ping example
+// Login
+//@Summary 登录接口
 // @Schemes
-// @Description do ping
-// @Tags example
+// @Description 登录
+// @Tags ops 认证
+// @Param user body models.Users true "登录参数"
 // @Accept json
 // @Produce json
-// @Success 200 {string} Helloworld
-// @Router /example/helloworld [get]
+// @Success 200
+// @Router /auths/login [post]
 func (ah AuthsHandler) Login(c *gin.Context) {
 	log.Printf("请求成功")
 	var users models.Users

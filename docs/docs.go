@@ -16,9 +16,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/example/helloworld": {
-            "get": {
-                "description": "do ping",
+        "/auths/login": {
+            "post": {
+                "description": "登录",
                 "consumes": [
                     "application/json"
                 ],
@@ -26,16 +26,37 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "ops 认证"
                 ],
-                "summary": "ping example",
-                "responses": {
-                    "200": {
-                        "description": "OK",
+                "summary": "登录接口",
+                "parameters": [
+                    {
+                        "description": "登录参数",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/models.Users"
                         }
                     }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Users": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
                 }
             }
         }
