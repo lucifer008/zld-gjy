@@ -15,7 +15,8 @@ func addAuthsRouters(rg *gin.RouterGroup) {
 		var user models.Users
 		if err := context.BindJSON(&user); err != nil {
 			log.Printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", user.Username)
-			log.Default().Fatal(err)
+			return
+			//	log.Default().Fatal(err)
 		}
 		log.Printf(">>>>>>>>>>>请求成功! 用户名:", user.Username, "密码:", user.Password)
 	})
