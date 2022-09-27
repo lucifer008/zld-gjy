@@ -4,7 +4,7 @@ FROM golang:1.18 as builder
 ENV GO111MODULE=on \
     GOPROXY=https://goproxy.cn,direct
 
-WORKDIR /usr/local/go/src/zld-jy
+WORKDIR /app
 
 COPY . .
 
@@ -16,16 +16,18 @@ RUN go mod download && go mod verify
 #指定环境变量
 RUN go env -w GO111MODULE=on
 
-RUN go build /usr/local/go/src/zld-jy/main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
+RUN mkdir publish && cp main publish
 
 # 运行阶段指定scratch作为基础镜像
 FROM alpine:3.10
 
-COPY --from=builder /usr/local/go/src/zld-jy /usr/local/go/src/zld-jy
+WORKDIR /app
+COPY --from=builder /app/publish .
 
 # 指定运行时环境变量
 ENV GIN_MODE=release
 
 EXPOSE 5000
 
-CMD ["/usr/local/go/src/zld-jy/main"]
+CMD ["/app/main"]
