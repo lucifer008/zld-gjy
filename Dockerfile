@@ -14,7 +14,7 @@ RUN mkdir publish && cp main app.yaml publish
 
 
 # 运行阶段指定scratch作为基础镜像
-FROM alpine:3.10
+FROM alpine
 RUN apk update \
     && apk add tzdata \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
