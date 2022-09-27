@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-	"zld-gly/models"
+	"zld-jy/models"
 )
 
 type AuthsHandler struct {

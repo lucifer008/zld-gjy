@@ -1,7 +1,7 @@
 package main
 
 import (
-	"zld-gly/routers"
+	"zld-jy/routers"
 )
 
 func main() {

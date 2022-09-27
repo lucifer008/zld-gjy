@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-	"zld-gly/action/auths"
-	"zld-gly/models"
+	"zld-jy/action/auths"
+	"zld-jy/models"
 )
 
 func addAuthsRouters(rg *gin.RouterGroup) {

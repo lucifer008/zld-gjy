@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"zld-gly/docs"
+	"zld-jy/docs"
 )
 
 var router = gin.Default()
