@@ -10,13 +10,3 @@ func addUserRouters(rg *gin.RouterGroup) {
 		context.JSON(http.StatusOK, "users")
 	})
 }
-func addOrderRouters(rg *gin.RouterGroup) {
-	rg.GET("/", func(context *gin.Context) {
-		context.JSON(http.StatusOK, "orders")
-	})
-}
-func addCustomerRouters(rg *gin.RouterGroup) {
-	rg.GET("/", func(context *gin.Context) {
-		context.JSON(http.StatusOK, "customers")
-	})
-}

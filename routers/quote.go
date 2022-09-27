@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func addOrderRouters(rg *gin.RouterGroup) {
+func addQuoteRouters(rg *gin.RouterGroup) {
 	rg.GET("/", func(context *gin.Context) {
-		context.JSON(http.StatusOK, "orders")
+		context.JSON(http.StatusOK, "quotes")
 	})
 }

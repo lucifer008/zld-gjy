@@ -15,7 +15,9 @@ func getRoutes() {
 	user := router.Group("/users")
 	order := router.Group("/orders")
 	customer := router.Group("customers")
+	quotes := router.Group("/quotes")
 	addUserRouters(user)
 	addOrderRouters(order)
 	addCustomerRouters(customer)
+	addQuoteRouters(quotes)
 }
