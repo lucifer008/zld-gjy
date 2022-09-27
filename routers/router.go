@@ -11,7 +11,7 @@ var router = gin.Default()
 
 // Run will start the server
 func Run() {
-	docs.SwaggerInfo_swagger.BasePath = "/api"
+	docs.SwaggerInfo.BasePath = "/api"
 	getRoutes()
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	router.Run(":5000")
