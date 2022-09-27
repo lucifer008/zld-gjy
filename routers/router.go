@@ -12,9 +12,9 @@ func Run() {
 	router.Run(":5000")
 }
 func getRoutes() {
-	user := router.Group("/user")
+	user := router.Group("/users")
 	order := router.Group("/orders")
-	customer := router.Group("customer")
+	customer := router.Group("customers")
 	addUserRouters(user)
 	addOrderRouters(order)
 	addCustomerRouters(customer)

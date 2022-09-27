@@ -17,6 +17,6 @@ func addOrderRouters(rg *gin.RouterGroup) {
 }
 func addCustomerRouters(rg *gin.RouterGroup) {
 	rg.GET("/", func(context *gin.Context) {
-		context.JSON(http.StatusOK, "customer")
+		context.JSON(http.StatusOK, "customers")
 	})
 }
