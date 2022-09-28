@@ -17,7 +17,7 @@ func init() {
 		fmt.Printf("错误", err)
 		return
 	}
-	fmt.Println(user)
+	fmt.Printf(">>>>>>>>>查询到信息:%+v\n", user)
 }
 func main() {
 	routers.Run()
