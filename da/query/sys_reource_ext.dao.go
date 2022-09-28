@@ -11,8 +11,8 @@ import (
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
 
-	"zld-jy/da/field"
-
+	"gorm.io/gen"
+	"gorm.io/gen/field"
 	"gorm.io/plugin/dbresolver"
 
 	"zld-jy/da/model"

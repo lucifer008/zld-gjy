@@ -6,12 +6,12 @@ package query
 
 import (
 	"context"
-	"zld-jy/da/field"
+	"gorm.io/gen/field"
 
+	"gorm.io/gen"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
-
 	"gorm.io/plugin/dbresolver"
 
 	"zld-jy/da/model"
