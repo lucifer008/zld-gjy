@@ -1,15 +1,14 @@
 package field
 
 import (
-	"reflect"
-	"strings"
-	"sync"
-	"testing"
-
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
 	"gorm.io/gorm/utils/tests"
+	"reflect"
+	"strings"
+	"sync"
+	"testing"
 )
 
 var db, _ = gorm.Open(tests.DummyDialector{}, nil)
