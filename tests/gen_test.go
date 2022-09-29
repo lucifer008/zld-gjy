@@ -11,5 +11,6 @@ var ctx = context.Background()
 
 func CRUDInit() {
 	query.Use(DB)
+	//分配内存
 	query.SetDefault(DB)
 }

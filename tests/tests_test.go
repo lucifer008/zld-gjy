@@ -1,19 +1,18 @@
 package tests_test
 
 import (
-	"log"
-	"os"
-	"path/filepath"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gen"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
+	"os"
+	"path/filepath"
 )
 
 const (
-	mysqlDSN     = "root:zxl_19831313#@@Qqqq@tcp(82.157.168.170:3306)/zld-users?charset=utf8mb4&parseTime=True" // "gen:gen@tcp(localhost:9910)/gen?charset=utf8&parseTime=True&loc=Local"
+	mysqlDSN     = "root:zxl_19831313#@@Qqqq@tcp(82.157.168.170:3306)/zld?charset=utf8mb4&parseTime=True" // "gen:gen@tcp(localhost:9910)/gen?charset=utf8&parseTime=True&loc=Local"
 	postgresDSN  = "user=gen password=gen dbname=gen host=localhost port=9920 sslmode=disable TimeZone=Asia/Shanghai"
 	sqlserverDSN = "sqlserver://gen:LoremIpsum86@localhost:9930?database=gen"
 )
