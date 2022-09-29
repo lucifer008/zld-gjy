@@ -10,7 +10,9 @@ var useOnce sync.Once
 var ctx = context.Background()
 
 func CRUDInit() {
+	//绑定数据库
 	query.Use(DB)
-	//分配内存
+
+	//初始化对指针类型
 	query.SetDefault(DB)
 }
