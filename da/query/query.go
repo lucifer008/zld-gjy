@@ -13,6 +13,10 @@ import (
 	"gorm.io/plugin/dbresolver"
 )
 
+var (
+	Company *company
+)
+
 func Use(db *gorm.DB) *Query {
 	return &Query{
 		db:                     db,
