@@ -14,9 +14,14 @@ import (
 )
 
 var (
+	Q       = new(Query)
 	Company *company
 )
 
+func SetDefault(db *gorm.DB) {
+	*Q = *Use(db)
+	Company = &Q.Company
+}
 func Use(db *gorm.DB) *Query {
 	return &Query{
 		db:                     db,

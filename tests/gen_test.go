@@ -2,8 +2,8 @@ package tests_test
 
 import (
 	"context"
-	"gorm.io/gen/examples/dal/query"
 	"sync"
+	"zld-jy/da/query"
 )
 
 var useOnce sync.Once

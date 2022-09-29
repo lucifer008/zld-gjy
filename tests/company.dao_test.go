@@ -11,7 +11,7 @@ func Test_newCompany(t *testing.T) {
 
 	u := query.Company
 
-	err := u.WithContext(ctx).Create(&model.Company{ID: 1})
+	err := u.WithContext(ctx).Create(&model.Company{ID: 1, CompanyName: "测试"})
 	if err != nil {
 		t.Errorf("create model fail: %s", err)
 	}
