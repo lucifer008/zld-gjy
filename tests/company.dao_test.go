@@ -1,4 +1,4 @@
-package tests_test
+package tests
 
 import (
 	"fmt"
@@ -95,5 +95,8 @@ func Test_Company_Query_Pages(t *testing.T) {
 	for _, item := range result2 {
 		fmt.Println(item)
 	}
+
+}
+func Test_Join(t *testing.T) {
 
 }
