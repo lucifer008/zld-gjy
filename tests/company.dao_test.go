@@ -73,6 +73,8 @@ func Test_Company_Query(t *testing.T) {
 	}
 	//fmt.Println(comList)
 }
+
+//分页
 func Test_Company_Query_Pages(t *testing.T) {
 	qur := query.Use(DB)
 	result, count, err := qur.Company.WithContext(ctx).FindByPage(1, 2)
