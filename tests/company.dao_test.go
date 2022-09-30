@@ -73,3 +73,24 @@ func Test_Company_Query(t *testing.T) {
 	}
 	//fmt.Println(comList)
 }
+func Test_Company_Query_Pages(t *testing.T) {
+	qur := query.Use(DB)
+	result, count, err := qur.Company.WithContext(ctx).FindByPage(1, 2)
+	if err != nil {
+		fmt.Errorf("错误信息>>>%w", err)
+		return
+	}
+	fmt.Println("总记录数>>>", count)
+	for _, item := range result {
+		fmt.Println(item)
+	}
+	result2, count2, err2 := qur.Company.WithContext(ctx).FindByPage(2, 2)
+	if err2 != nil {
+		fmt.Errorf("错误信息>>>%w", err2)
+		return
+	}
+	fmt.Println("总记录数>>>", count2)
+	for _, item := range result2 {
+		fmt.Println(item)
+	}
+}
