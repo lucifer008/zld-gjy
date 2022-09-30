@@ -14,7 +14,7 @@ const TableNameOrganization = "Organization"
 type Organization struct {
 	ID             int64     `gorm:"column:Id;primaryKey" json:"Id"`                   // Id
 	ComID          int64     `gorm:"column:Com_Id" json:"Com_Id"`                      // Id
-	OrgID          int64     `gorm:"column:Org_Id" json:"Org_Id"`                      // Id
+	OrgID          *int64    `gorm:"column:Org_Id" json:"Org_Id"`                      // Id
 	OrgName        string    `gorm:"column:Org_Name" json:"Org_Name"`                  // 组织名称
 	OrgCode        string    `gorm:"column:Org_Code" json:"Org_Code"`                  // 组织代码
 	OrgLevel       int32     `gorm:"column:Org_Level" json:"Org_Level"`                // 组织级别
