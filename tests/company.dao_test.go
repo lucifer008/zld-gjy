@@ -68,8 +68,8 @@ func Test_Company_Query(t *testing.T) {
 	if err != nil {
 		fmt.Errorf("错误>>>>%w", err)
 	}
-	for com, v := range comList {
-		fmt.Println(com, v)
+	for index, v := range comList {
+		fmt.Println(index, v)
 	}
 	//fmt.Println(comList)
 }
