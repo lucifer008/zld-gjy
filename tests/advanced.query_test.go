@@ -29,6 +29,7 @@ func TestAdvanceQuery(t *testing.T) {
 	DB.Model(&model.SysUser{}).Find(customerUser)
 	fmt.Println(customerUser)
 }
+
 func TestRawQuery(t *testing.T) {
 	type Result struct {
 		id       int
@@ -38,6 +39,7 @@ func TestRawQuery(t *testing.T) {
 	}
 	var sql = "SELECT usr.Id as id,usr.User_Name as username FROM Sys_Users usr inner join Employee emp on usr.Emp_Id=emp.Id where usr.User_Name=?"
 	var res = Result{}
-	DB.Raw(sql, "zhangsan").Scan(&res).Commit()
+	//todo 验证未通过
+	DB.Raw(sql, "zhangsan").Scan(&res)
 	fmt.Println(res)
 }
