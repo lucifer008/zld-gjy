@@ -95,4 +95,5 @@ func Test_Company_Query_Pages(t *testing.T) {
 	for _, item := range result2 {
 		fmt.Println(item)
 	}
+
 }
