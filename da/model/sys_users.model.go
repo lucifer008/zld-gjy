@@ -13,7 +13,7 @@ const TableNameSysUser = "Sys_Users"
 // SysUser mapped from table <Sys_Users>
 type SysUser struct {
 	ID             int64     `gorm:"column:Id;primaryKey" json:"Id"`                  // Id
-	SysID          int64     `gorm:"column:Sys_Id" json:"Sys_Id"`                     // Id
+	SysID          *int64    `gorm:"column:Sys_Id" json:"Sys_Id"`                     // Id
 	EmpID          int64     `gorm:"column:Emp_Id" json:"Emp_Id"`                     // 雇员Id
 	UserName       string    `gorm:"column:User_Name" json:"User_Name"`               // 用户名称
 	UserEmail      string    `gorm:"column:User_Email" json:"User_Email"`             // 用户邮箱
