@@ -59,3 +59,17 @@ func Test_Trans(t *testing.T) {
 	}
 	fmt.Println(">>>>>>>>>>>>>success!>>>>>>>>>>>>>>>>>>>>>>>>>")
 }
+
+//测试list
+func Test_Company_Query(t *testing.T) {
+	qur := query.Use(DB)
+	//var comList []*model.Company
+	comList, err := qur.Company.WithContext(ctx).Find()
+	if err != nil {
+		fmt.Errorf("错误>>>>%w", err)
+	}
+	for com, v := range comList {
+		fmt.Println(com, v)
+	}
+	//fmt.Println(comList)
+}
