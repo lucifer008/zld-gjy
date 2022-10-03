@@ -35,8 +35,9 @@ func (impl *AuthServiceImpl) Auths(u models.Users) models.Auths {
 	}
 	employee, _ := employeeDao.WithContext(context.Background()).Where(employeeDao.ID.Eq(userinfo.EmpID)).Take()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"foo": "bar",
-		"nbf": time.Date(2022, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
+		"username": username,
+		"userId":   userinfo.ID,
+		"nbf":      time.Date(2022, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
 	})
 	//密钥
 	var keyVal interface{}
