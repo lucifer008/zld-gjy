@@ -43,3 +43,17 @@ func Test_LoginUser(t *testing.T) {
 
 	//fmt.Println(count2)
 }
+func Test_Get_User_Infos(t *testing.T) {
+	qur := query.Use(DB)
+	var users = qur.SysUser
+	var employee = qur.Employee
+	var username = "zhangsan1"
+	password := MD5("wxllx@124343.com")
+	userModel, _ := users.WithContext(ctx).Where(users.UserName.Eq(username), users.UserPassword.Eq(password)).Take()
+	if userModel == nil {
+		log.Println("无此用户信息>>", username)
+		return
+	}
+	employeeMode, _ := employee.WithContext(ctx).Where(employee.ID.Eq(userModel.EmpID)).Take()
+	log.Println("雇员信息>>>>", employeeMode)
+}
