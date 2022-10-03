@@ -25,9 +25,21 @@ func SetDefault(db *gorm.DB) {
 func Use(db *gorm.DB) *Query {
 	return &Query{
 		db:                     db,
+		Area:                   newArea(db),
+		BillingOrder:           newBillingOrder(db),
+		BillsOrdersItem:        newBillsOrdersItem(db),
 		Company:                newCompany(db),
+		Customer:               newCustomer(db),
+		CustomerPoject:         newCustomerPoject(db),
 		Employee:               newEmployee(db),
+		LogisticsCompany:       newLogisticsCompany(db),
+		Order:                  newOrder(db),
+		OrderStatus:            newOrderStatus(db),
+		OrdersFee:              newOrdersFee(db),
+		OrdersFinance:          newOrdersFinance(db),
+		OrdersGood:             newOrdersGood(db),
 		Organization:           newOrganization(db),
+		Store:                  newStore(db),
 		SysOpenUser:            newSysOpenUser(db),
 		SysPermission:          newSysPermission(db),
 		SysPermissionGroup:     newSysPermissionGroup(db),
@@ -40,15 +52,28 @@ func Use(db *gorm.DB) *Query {
 		SysUserGroup:           newSysUserGroup(db),
 		SysUserGroupRole:       newSysUserGroupRole(db),
 		SysUserRole:            newSysUserRole(db),
+		Vehicle:                newVehicle(db),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
+	Area                   area
+	BillingOrder           billingOrder
+	BillsOrdersItem        billsOrdersItem
 	Company                company
+	Customer               customer
+	CustomerPoject         customerPoject
 	Employee               employee
+	LogisticsCompany       logisticsCompany
+	Order                  order
+	OrderStatus            orderStatus
+	OrdersFee              ordersFee
+	OrdersFinance          ordersFinance
+	OrdersGood             ordersGood
 	Organization           organization
+	Store                  store
 	SysOpenUser            sysOpenUser
 	SysPermission          sysPermission
 	SysPermissionGroup     sysPermissionGroup
@@ -61,6 +86,7 @@ type Query struct {
 	SysUserGroup           sysUserGroup
 	SysUserGroupRole       sysUserGroupRole
 	SysUserRole            sysUserRole
+	Vehicle                vehicle
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -68,9 +94,21 @@ func (q *Query) Available() bool { return q.db != nil }
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
 		db:                     db,
+		Area:                   q.Area.clone(db),
+		BillingOrder:           q.BillingOrder.clone(db),
+		BillsOrdersItem:        q.BillsOrdersItem.clone(db),
 		Company:                q.Company.clone(db),
+		Customer:               q.Customer.clone(db),
+		CustomerPoject:         q.CustomerPoject.clone(db),
 		Employee:               q.Employee.clone(db),
+		LogisticsCompany:       q.LogisticsCompany.clone(db),
+		Order:                  q.Order.clone(db),
+		OrderStatus:            q.OrderStatus.clone(db),
+		OrdersFee:              q.OrdersFee.clone(db),
+		OrdersFinance:          q.OrdersFinance.clone(db),
+		OrdersGood:             q.OrdersGood.clone(db),
 		Organization:           q.Organization.clone(db),
+		Store:                  q.Store.clone(db),
 		SysOpenUser:            q.SysOpenUser.clone(db),
 		SysPermission:          q.SysPermission.clone(db),
 		SysPermissionGroup:     q.SysPermissionGroup.clone(db),
@@ -83,6 +121,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		SysUserGroup:           q.SysUserGroup.clone(db),
 		SysUserGroupRole:       q.SysUserGroupRole.clone(db),
 		SysUserRole:            q.SysUserRole.clone(db),
+		Vehicle:                q.Vehicle.clone(db),
 	}
 }
 
@@ -99,9 +138,21 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 }
 
 type queryCtx struct {
+	Area                   *areaDo
+	BillingOrder           *billingOrderDo
+	BillsOrdersItem        *billsOrdersItemDo
 	Company                *companyDo
+	Customer               *customerDo
+	CustomerPoject         *customerPojectDo
 	Employee               *employeeDo
+	LogisticsCompany       *logisticsCompanyDo
+	Order                  *orderDo
+	OrderStatus            *orderStatusDo
+	OrdersFee              *ordersFeeDo
+	OrdersFinance          *ordersFinanceDo
+	OrdersGood             *ordersGoodDo
 	Organization           *organizationDo
+	Store                  *storeDo
 	SysOpenUser            *sysOpenUserDo
 	SysPermission          *sysPermissionDo
 	SysPermissionGroup     *sysPermissionGroupDo
@@ -114,13 +165,26 @@ type queryCtx struct {
 	SysUserGroup           *sysUserGroupDo
 	SysUserGroupRole       *sysUserGroupRoleDo
 	SysUserRole            *sysUserRoleDo
+	Vehicle                *vehicleDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
+		Area:                   q.Area.WithContext(ctx),
+		BillingOrder:           q.BillingOrder.WithContext(ctx),
+		BillsOrdersItem:        q.BillsOrdersItem.WithContext(ctx),
 		Company:                q.Company.WithContext(ctx),
+		Customer:               q.Customer.WithContext(ctx),
+		CustomerPoject:         q.CustomerPoject.WithContext(ctx),
 		Employee:               q.Employee.WithContext(ctx),
+		LogisticsCompany:       q.LogisticsCompany.WithContext(ctx),
+		Order:                  q.Order.WithContext(ctx),
+		OrderStatus:            q.OrderStatus.WithContext(ctx),
+		OrdersFee:              q.OrdersFee.WithContext(ctx),
+		OrdersFinance:          q.OrdersFinance.WithContext(ctx),
+		OrdersGood:             q.OrdersGood.WithContext(ctx),
 		Organization:           q.Organization.WithContext(ctx),
+		Store:                  q.Store.WithContext(ctx),
 		SysOpenUser:            q.SysOpenUser.WithContext(ctx),
 		SysPermission:          q.SysPermission.WithContext(ctx),
 		SysPermissionGroup:     q.SysPermissionGroup.WithContext(ctx),
@@ -133,6 +197,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		SysUserGroup:           q.SysUserGroup.WithContext(ctx),
 		SysUserGroupRole:       q.SysUserGroupRole.WithContext(ctx),
 		SysUserRole:            q.SysUserRole.WithContext(ctx),
+		Vehicle:                q.Vehicle.WithContext(ctx),
 	}
 }
 
