@@ -3,7 +3,7 @@ package action_users
 import (
 	"github.com/gin-gonic/gin"
 	"log"
-	service_users "zld-jy/service/users/impl"
+	"zld-jy/service/users"
 )
 
 var Instance *UsersAction

@@ -7,7 +7,13 @@ import (
 	"zld-jy/models"
 )
 
-type AuthsHandler struct {
+var Instance *AuthsAction
+
+func init() {
+	Instance = &AuthsAction{}
+}
+
+type AuthsAction struct {
 }
 
 // Login
@@ -20,9 +26,12 @@ type AuthsHandler struct {
 // @Produce json
 // @Success 200
 // @Router /auths/login [post]
-func (ah AuthsHandler) Login(c *gin.Context) {
-	log.Printf("请求成功")
+func (ah AuthsAction) Login(c *gin.Context) {
 	var users models.Users
-	c.IndentedJSON(http.StatusOK, users)
+	if err := c.BindJSON(&users); err != nil {
+		c.JSONP(http.StatusOK, gin.H{"status": "错误:" + err.Error()})
+		return
+	}
+
 	log.Printf(">>>>>解析后的参数:", users)
 }
