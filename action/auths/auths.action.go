@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"zld-jy/models"
+	"zld-jy/service/auths"
 )
 
 var Instance *AuthsAction
@@ -32,6 +33,8 @@ func (ah AuthsAction) Login(c *gin.Context) {
 		c.JSONP(http.StatusOK, gin.H{"status": "错误:" + err.Error()})
 		return
 	}
-
+	loginUsers := auths.Instance.Auths(users)
+	c.JSONP(http.StatusOK, loginUsers)
 	log.Printf(">>>>>解析后的参数:", users)
+
 }
