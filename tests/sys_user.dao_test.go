@@ -3,6 +3,7 @@ package tests
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"log"
 	"testing"
 	"time"
 	"zld-jy/da/model"
@@ -26,4 +27,19 @@ func MD5(v string) string {
 	m := md5.New()
 	m.Write(d)
 	return hex.EncodeToString(m.Sum(nil))
+}
+func Test_LoginUser(t *testing.T) {
+	sysUsers := query.Use(DB).SysUser
+	var username = "zhangsan"
+	password := MD5("wxllx@124343.com")
+	count, err := sysUsers.WithContext(ctx).Where(sysUsers.UserName.Eq(username), sysUsers.UserPassword.Eq(password)).Count()
+	if err != nil {
+		log.Printf(err.Error())
+		return
+	}
+	log.Println(">>>>>>>>>>>>count=", count)
+	//var count2 *int64
+	//DB.Table("sys_users").Where("user_name=?", username).Where("user_password=?", password).Count(count2)
+
+	//fmt.Println(count2)
 }
