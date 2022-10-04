@@ -26,7 +26,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ops 认证"
+                    "认证"
                 ],
                 "summary": "登录接口",
                 "parameters": [
@@ -86,9 +86,11 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "password": {
+                    "description": "密码",
                     "type": "string"
                 },
                 "username": {
+                    "description": "用户名",
                     "type": "string"
                 }
             }

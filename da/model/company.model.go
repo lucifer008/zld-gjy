@@ -17,7 +17,7 @@ type Company struct {
 	CompanyType      int32     `gorm:"column:Company_Type" json:"Company_Type"`             // 公司类型(0:政府 1: 消防 3 :企业 )
 	CompanyDesc      string    `gorm:"column:Company_Desc" json:"Company_Desc"`             // 描述
 	RegisterDateTime time.Time `gorm:"column:Register_Date_Time" json:"Register_Date_Time"` // 注册时间
-	Status           int32     `gorm:"column:Status" json:"Status"`                         // 状态(0: 正常 1:停用)
+	Status           int32     `gorm:"column:Code" json:"Code"`                             // 状态(0: 正常 1:停用)
 	InsertDateTime   time.Time `gorm:"column:Insert_Date_Time" json:"Insert_Date_Time"`     // 插入时间
 	InsertUser       int64     `gorm:"column:Insert_User" json:"Insert_User"`               // 插入用户
 	UpdateDateTime   time.Time `gorm:"column:Update_Date_Time" json:"Update_Date_Time"`     // 更新时间

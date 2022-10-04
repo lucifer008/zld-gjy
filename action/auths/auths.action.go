@@ -27,8 +27,8 @@ var nonAuthUrl = [2]string{"swagger", "login"}
 //@Summary 登录接口
 // @Schemes
 // @Description 登录
-// @Tags ops 认证
-// @Param user body models.LoginUsers true "登录参数"
+// @Tags 认证
+// @Param user body models.LoginUsers true "登录参数" default(zhangsan,11)
 // @Accept json
 // @Produce json
 // @Success 200
@@ -56,13 +56,13 @@ func Authorize() gin.HandlerFunc {
 		token := context.GetHeader("accesstoken")
 		if len(token) == 0 {
 			context.Abort()
-			context.JSON(http.StatusUnauthorized, models.Result{Status: http.StatusUnauthorized, Desc: "非法请求"})
+			context.JSON(http.StatusUnauthorized, models.Result{Code: http.StatusUnauthorized, Message: "非法请求"})
 			return
 		}
 		success := checkAuths(token)
 		if !success {
 			context.Abort()
-			context.JSON(http.StatusUnauthorized, models.Result{Status: http.StatusUnauthorized, Desc: "Token已过期或者无效Token"})
+			context.JSON(http.StatusUnauthorized, models.Result{Code: http.StatusUnauthorized, Message: "Token已过期或者无效Token"})
 			return
 		}
 		context.Next()

@@ -2,8 +2,10 @@ definitions:
   models.LoginUsers:
     properties:
       password:
+        description: 密码
         type: string
       username:
+        description: 用户名
         type: string
     type: object
   models.UsersInfo:
@@ -49,7 +51,7 @@ paths:
           description: OK
       summary: 登录接口
       tags:
-      - ops 认证
+      - 认证
   /users/getUsers:
     get:
       consumes:

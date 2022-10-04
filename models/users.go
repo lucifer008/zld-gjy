@@ -1,8 +1,8 @@
 package models
 
 type LoginUsers struct {
-	Username string
-	Password string
+	Username string //用户名
+	Password string //密码
 }
 type UsersInfo struct {
 	UserId    int64  //用户Id

@@ -32,7 +32,7 @@ func newCompany(db *gorm.DB) company {
 	_company.CompanyType = field.NewInt32(tableName, "Company_Type")
 	_company.CompanyDesc = field.NewString(tableName, "Company_Desc")
 	_company.RegisterDateTime = field.NewTime(tableName, "Register_Date_Time")
-	_company.Status = field.NewInt32(tableName, "Status")
+	_company.Status = field.NewInt32(tableName, "Code")
 	_company.InsertDateTime = field.NewTime(tableName, "Insert_Date_Time")
 	_company.InsertUser = field.NewInt64(tableName, "Insert_User")
 	_company.UpdateDateTime = field.NewTime(tableName, "Update_Date_Time")
@@ -82,7 +82,7 @@ func (c *company) updateTableName(table string) *company {
 	c.CompanyType = field.NewInt32(table, "Company_Type")
 	c.CompanyDesc = field.NewString(table, "Company_Desc")
 	c.RegisterDateTime = field.NewTime(table, "Register_Date_Time")
-	c.Status = field.NewInt32(table, "Status")
+	c.Status = field.NewInt32(table, "Code")
 	c.InsertDateTime = field.NewTime(table, "Insert_Date_Time")
 	c.InsertUser = field.NewInt64(table, "Insert_User")
 	c.UpdateDateTime = field.NewTime(table, "Update_Date_Time")
@@ -117,7 +117,7 @@ func (c *company) fillFieldMap() {
 	c.fieldMap["Company_Type"] = c.CompanyType
 	c.fieldMap["Company_Desc"] = c.CompanyDesc
 	c.fieldMap["Register_Date_Time"] = c.RegisterDateTime
-	c.fieldMap["Status"] = c.Status
+	c.fieldMap["Code"] = c.Status
 	c.fieldMap["Insert_Date_Time"] = c.InsertDateTime
 	c.fieldMap["Insert_User"] = c.InsertUser
 	c.fieldMap["Update_Date_Time"] = c.UpdateDateTime

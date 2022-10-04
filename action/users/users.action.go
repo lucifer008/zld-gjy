@@ -16,6 +16,7 @@ type UsersAction struct {
 
 // GetUserInfo
 //@Summary 获取用户信息
+// @Tags 用户
 // @Schemes
 // @Description 根据用户ID获取用户信息
 // @Tags ops 认证
