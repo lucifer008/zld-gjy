@@ -13,8 +13,8 @@ type UsersInfo struct {
 	EmpName   string //雇员名称
 }
 type RegisterUser struct {
-	UserName  string //用户名称
-	UserEmail string //用户邮箱
-	Tel       string //手机号
-	Password  string //密码
+	UserName  string `json:"username" example:"zhangsan"`          //用户名称
+	UserEmail string `json:"userEmail" example:"zhangsan@163.com"` //用户邮箱
+	Tel       string `json:"tel" example:"18011329010"`            //手机号
+	Password  string `json:"password" example:"zxl222@asas"`       //密码
 }

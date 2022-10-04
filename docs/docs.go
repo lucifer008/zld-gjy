@@ -136,19 +136,23 @@ const docTemplate = `{
             "properties": {
                 "password": {
                     "description": "密码",
-                    "type": "string"
+                    "type": "string",
+                    "example": "zxl222@asas"
                 },
                 "tel": {
                     "description": "手机号",
-                    "type": "string"
+                    "type": "string",
+                    "example": "18011329010"
                 },
                 "userEmail": {
                     "description": "用户邮箱",
-                    "type": "string"
+                    "type": "string",
+                    "example": "zhangsan@163.com"
                 },
-                "userName": {
+                "username": {
                     "description": "用户名称",
-                    "type": "string"
+                    "type": "string",
+                    "example": "zhangsan"
                 }
             }
         },

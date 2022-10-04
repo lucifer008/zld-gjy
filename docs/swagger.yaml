@@ -14,15 +14,19 @@ definitions:
     properties:
       password:
         description: 密码
+        example: zxl222@asas
         type: string
       tel:
         description: 手机号
+        example: "18011329010"
         type: string
       userEmail:
         description: 用户邮箱
+        example: zhangsan@163.com
         type: string
-      userName:
+      username:
         description: 用户名称
+        example: zhangsan
         type: string
     type: object
   models.Result:
