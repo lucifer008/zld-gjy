@@ -27,7 +27,7 @@ var nonAuthUrl = [2]string{"swagger", "login"}
 // @Schemes
 // @Description 登录
 // @Tags 认证
-// @Param user body models.LoginUsers true "登录参数" default(zhangsan,11)
+// @Param user body models.LoginUsers true "登录参数"
 // @Accept json
 // @Produce json
 // @Success 200

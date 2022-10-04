@@ -3,9 +3,11 @@ definitions:
     properties:
       password:
         description: 密码
+        example: wxllx@124343.com
         type: string
       username:
         description: 用户名
+        example: zhangsan
         type: string
     type: object
   models.UsersInfo:

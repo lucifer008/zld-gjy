@@ -1,8 +1,8 @@
 package models
 
 type LoginUsers struct {
-	Username string //用户名
-	Password string //密码
+	Username string `json:"username" example:"zhangsan"`         //用户名
+	Password string `json:"password" example:"wxllx@124343.com"` //密码
 }
 type UsersInfo struct {
 	UserId    int64  //用户Id

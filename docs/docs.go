@@ -87,11 +87,13 @@ const docTemplate = `{
             "properties": {
                 "password": {
                     "description": "密码",
-                    "type": "string"
+                    "type": "string",
+                    "example": "wxllx@124343.com"
                 },
                 "username": {
                     "description": "用户名",
-                    "type": "string"
+                    "type": "string",
+                    "example": "zhangsan"
                 }
             }
         },
