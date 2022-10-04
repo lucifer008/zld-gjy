@@ -14,15 +14,15 @@ func init() {
 type UsersAction struct {
 }
 
-// Login
+// GetUserInfo
 //@Summary 获取用户信息
 // @Schemes
 // @Description 根据用户ID获取用户信息
 // @Tags ops 认证
-// @Param user body userId true "登录参数"
+// @Param userId query  string true "登录参数" default(1)
 // @Accept json
 // @Produce json
-// @Success 200
+// @Success 200 {object} models.UsersInfo
 // @Router /users/getUsers [get]
 func (uh *UsersAction) GetUserInfo(userId string) models.UsersInfo {
 	//log.Println(">>>>>>>>>>>>>>>>>>>>>>>>>UserAction>>>>>GetUserInfo>>>>>>>>>>>")

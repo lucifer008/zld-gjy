@@ -27,12 +27,12 @@ func (u *UserServiceImpl) GetUsers(userId string) (us *model.SysUser, em *model.
 	}
 	qur := query.Use(base.DB)
 	sysUserQuery := qur.SysUser
-	emplyeeQuery := qur.Employee
+	employeeQuery := qur.Employee
 	id, _ := strconv.ParseInt(userId, 10, 64)
 	sysUser, err := sysUserQuery.WithContext(context.Background()).Where(sysUserQuery.ID.Eq(id)).Take()
 	if err != nil {
 		panic(err)
 	}
-	employee, _ := emplyeeQuery.WithContext(context.Background()).Where(emplyeeQuery.ID.Eq(sysUser.EmpID)).Take()
+	employee, _ := employeeQuery.WithContext(context.Background()).Where(employeeQuery.ID.Eq(sysUser.EmpID)).Take()
 	return sysUser, employee
 }

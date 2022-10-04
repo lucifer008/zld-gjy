@@ -22,12 +22,16 @@ golang版本
 2.  xxxx
 3.  xxxx
 
-#### 参与贡献
+#### swagger接口生成
+##### 1.工具仓库
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+https://github.com/swaggo/gin-swagger
+
+##### 2. 安装及运行
+
+######2.1 go get -u github.com/swaggo/swag/cmd/swag
+######2.2 go install github.com/swaggo/swag/cmd/swag
+######2.3 swag init
 
 
 #### api

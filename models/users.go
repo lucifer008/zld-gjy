@@ -9,6 +9,6 @@ type UsersInfo struct {
 	UserName  string //用户名称
 	UserEmail string //用户游戏
 	UserType  int32  //用户类型
-	EmpNo     string
-	EmpName   string
+	EmpNo     string //雇员编号
+	EmpName   string //雇员名称
 }

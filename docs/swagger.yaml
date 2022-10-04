@@ -1,10 +1,31 @@
 definitions:
-  models.Users:
+  models.LoginUsers:
     properties:
       password:
         type: string
       username:
         type: string
+    type: object
+  models.UsersInfo:
+    properties:
+      empName:
+        description: 雇员名称
+        type: string
+      empNo:
+        description: 雇员编号
+        type: string
+      userEmail:
+        description: 用户游戏
+        type: string
+      userId:
+        description: 用户Id
+        type: integer
+      userName:
+        description: 用户名称
+        type: string
+      userType:
+        description: 用户类型
+        type: integer
     type: object
 info:
   contact: {}
@@ -20,13 +41,35 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/models.Users'
+          $ref: '#/definitions/models.LoginUsers'
       produces:
       - application/json
       responses:
         "200":
           description: OK
       summary: 登录接口
+      tags:
+      - ops 认证
+  /users/getUsers:
+    get:
+      consumes:
+      - application/json
+      description: 根据用户ID获取用户信息
+      parameters:
+      - default: "1"
+        description: 登录参数
+        in: query
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UsersInfo'
+      summary: 获取用户信息
       tags:
       - ops 认证
 swagger: "2.0"

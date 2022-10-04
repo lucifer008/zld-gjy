@@ -36,7 +36,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Users"
+                            "$ref": "#/definitions/models.LoginUsers"
                         }
                     }
                 ],
@@ -46,10 +46,43 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/users/getUsers": {
+            "get": {
+                "description": "根据用户ID获取用户信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ops 认证"
+                ],
+                "summary": "获取用户信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "1",
+                        "description": "登录参数",
+                        "name": "userId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UsersInfo"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "models.Users": {
+        "models.LoginUsers": {
             "type": "object",
             "properties": {
                 "password": {
@@ -57,6 +90,35 @@ const docTemplate = `{
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "models.UsersInfo": {
+            "type": "object",
+            "properties": {
+                "empName": {
+                    "description": "雇员名称",
+                    "type": "string"
+                },
+                "empNo": {
+                    "description": "雇员编号",
+                    "type": "string"
+                },
+                "userEmail": {
+                    "description": "用户游戏",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户Id",
+                    "type": "integer"
+                },
+                "userName": {
+                    "description": "用户名称",
+                    "type": "string"
+                },
+                "userType": {
+                    "description": "用户类型",
+                    "type": "integer"
                 }
             }
         }
