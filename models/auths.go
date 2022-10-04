@@ -1,6 +1,6 @@
 package models
 
-type Auths struct {
+type AuthsModel struct {
 	Username    string
 	EmplyeeName string
 	AuthsToken  string

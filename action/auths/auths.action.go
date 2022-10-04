@@ -28,13 +28,13 @@ var nonAuthUrl = [2]string{"swagger", "login"}
 // @Schemes
 // @Description 登录
 // @Tags ops 认证
-// @Param user body models.Users true "登录参数"
+// @Param user body models.LoginUsers true "登录参数"
 // @Accept json
 // @Produce json
 // @Success 200
 // @Router /auths/login [post]
 func (ah AuthsAction) Login(c *gin.Context) {
-	var users models.Users
+	var users models.LoginUsers
 	if err := c.BindJSON(&users); err != nil {
 		c.JSONP(http.StatusOK, gin.H{"status": "错误:" + err.Error()})
 		return

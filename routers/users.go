@@ -2,15 +2,15 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"net/http"
-	"time"
 	"zld-jy/action/users"
+	"zld-jy/models"
 )
 
 func addUserRouters(rg *gin.RouterGroup) {
-	rg.GET("/", func(context *gin.Context) {
+	rg.GET("/getUsers", func(context *gin.Context) {
 		//处理逻辑
-		action_users.Instance.GetUserInfo(context)
-		context.JSON(http.StatusOK, "users:"+time.Now().String())
+		var userId = context.Param("userId")
+		userinfo := action_users.Instance.GetUserInfo(userId)
+		models.OK(context, userinfo)
 	})
 }

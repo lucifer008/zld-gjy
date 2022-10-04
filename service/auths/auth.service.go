@@ -20,12 +20,12 @@ func init() {
 }
 
 type AuthService interface {
-	Auths(u models.Users) models.Auths
+	Auths(u models.LoginUsers) models.AuthsModel
 }
 type AuthServiceImpl struct {
 }
 
-func (impl *AuthServiceImpl) Auths(u models.Users) models.Auths {
+func (impl *AuthServiceImpl) Auths(u models.LoginUsers) models.AuthsModel {
 	qur := query.Use(base.DB)
 	userDao := qur.SysUser
 	employeeDao := qur.Employee
@@ -33,7 +33,7 @@ func (impl *AuthServiceImpl) Auths(u models.Users) models.Auths {
 	var password = utils.MD5(u.Password)
 	userinfo, _ := userDao.WithContext(context.Background()).Where(userDao.UserName.Eq(username), userDao.UserPassword.Eq(password)).Take()
 	if userinfo == nil {
-		return models.Auths{Status: 1, Desc: "无此用户信息"}
+		return models.AuthsModel{Status: 1, Desc: "无此用户信息"}
 	}
 	employee, _ := employeeDao.WithContext(context.Background()).Where(employeeDao.ID.Eq(userinfo.EmpID)).Take()
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -48,5 +48,5 @@ func (impl *AuthServiceImpl) Auths(u models.Users) models.Auths {
 	fmt.Println(tokenString, err)
 	tokenKey := fmt.Sprintf("token:user:%d", userinfo.ID)
 	middleware.Set(tokenKey, tokenString)
-	return models.Auths{Username: userinfo.UserName, EmplyeeName: employee.EmpName, AuthsToken: tokenString, Status: 0, Desc: "成功!"}
+	return models.AuthsModel{Username: userinfo.UserName, EmplyeeName: employee.EmpName, AuthsToken: tokenString, Status: 0, Desc: "成功!"}
 }

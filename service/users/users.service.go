@@ -1,6 +1,12 @@
 package service_users
 
-import "log"
+import (
+	"context"
+	"strconv"
+	"zld-jy/da/base"
+	"zld-jy/da/model"
+	"zld-jy/da/query"
+)
 
 type UsersService interface {
 	GetUsers()
@@ -15,6 +21,18 @@ func init() {
 type UserServiceImpl struct {
 }
 
-func (u *UserServiceImpl) GetUsers() {
-	log.Println(">>>>>>>>>>>>>>>>User Serive GetUsers>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+func (u *UserServiceImpl) GetUsers(userId string) (us *model.SysUser, em *model.Employee) {
+	if userId == "" {
+		panic("用户Id不能为空!")
+	}
+	qur := query.Use(base.DB)
+	sysUserQuery := qur.SysUser
+	emplyeeQuery := qur.Employee
+	id, _ := strconv.ParseInt(userId, 10, 64)
+	sysUser, err := sysUserQuery.WithContext(context.Background()).Where(sysUserQuery.ID.Eq(id)).Take()
+	if err != nil {
+		panic(err)
+	}
+	employee, _ := emplyeeQuery.WithContext(context.Background()).Where(emplyeeQuery.ID.Eq(sysUser.EmpID)).Take()
+	return sysUser, employee
 }
