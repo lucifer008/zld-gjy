@@ -73,5 +73,5 @@ paths:
             $ref: '#/definitions/models.UsersInfo'
       summary: 获取用户信息
       tags:
-      - ops 认证
+      - 用户
 swagger: "2.0"

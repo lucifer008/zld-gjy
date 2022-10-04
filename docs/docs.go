@@ -57,7 +57,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ops 认证"
+                    "用户"
                 ],
                 "summary": "获取用户信息",
                 "parameters": [

@@ -19,7 +19,6 @@ type UsersAction struct {
 // @Tags 用户
 // @Schemes
 // @Description 根据用户ID获取用户信息
-// @Tags ops 认证
 // @Param userId query  string true "登录参数" default(1)
 // @Accept json
 // @Produce json
