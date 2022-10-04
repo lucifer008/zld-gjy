@@ -23,6 +23,7 @@ var DB *gorm.DB
 //初始化数据库连接
 
 func init() {
+
 	log.Print("initing...")
 	var err error
 	if DB, err = OpenTestConnection(); err != nil {

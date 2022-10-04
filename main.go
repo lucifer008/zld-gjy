@@ -9,13 +9,14 @@ import (
 )
 
 func init() {
-	conf := flag.String("c", "app.yml", "配置文件")
+
+	//todo 单元测试时注释以下代码
+	conf := flag.String("con", "app.yml", "配置文件")
 	flag.Parse()
 	config.Load(*conf)
 	log.Println(">>>>>>>>>>配置信息>>>>>>>>>>>>", config.Config)
 	base.InitDB()
 
-	//log.Println(">>>>>>>>>>redis 初始化成功!>>>>>>>>>>>>", config.Config)
 }
 func main() {
 	routers.Run()
