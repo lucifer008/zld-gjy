@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
-	"log"
 	"net/http"
 	"strings"
 	"zld-jy/config"
@@ -40,8 +39,7 @@ func (ah AuthsAction) Login(c *gin.Context) {
 		return
 	}
 	loginUsers := auths.Instance.Auths(users)
-	c.JSONP(http.StatusOK, loginUsers)
-	log.Printf(">>>>>解析后的参数:", users)
+	models.OK(c, loginUsers)
 
 }
 func Authorize() gin.HandlerFunc {
