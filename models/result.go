@@ -18,3 +18,10 @@ func OK(context *gin.Context, data interface{}) {
 		Message: "success",
 	})
 }
+
+//func OK(context *gin.Context) {
+//	context.JSON(http.StatusOK, Result{
+//		Code:    http.StatusOK,
+//		Message: "success",
+//	})
+//}

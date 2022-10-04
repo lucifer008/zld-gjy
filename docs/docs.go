@@ -79,6 +79,40 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/users/register": {
+            "post": {
+                "description": "注册用户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "注册用户",
+                "parameters": [
+                    {
+                        "description": "注册用户信息",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RegisterUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Result"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -97,6 +131,39 @@ const docTemplate = `{
                 }
             }
         },
+        "models.RegisterUser": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "description": "密码",
+                    "type": "string"
+                },
+                "tel": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "userEmail": {
+                    "description": "用户邮箱",
+                    "type": "string"
+                },
+                "userName": {
+                    "description": "用户名称",
+                    "type": "string"
+                }
+            }
+        },
+        "models.Result": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
         "models.UsersInfo": {
             "type": "object",
             "properties": {
@@ -109,7 +176,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "userEmail": {
-                    "description": "用户游戏",
+                    "description": "用户邮箱",
                     "type": "string"
                 },
                 "userId": {

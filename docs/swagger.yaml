@@ -10,6 +10,29 @@ definitions:
         example: zhangsan
         type: string
     type: object
+  models.RegisterUser:
+    properties:
+      password:
+        description: 密码
+        type: string
+      tel:
+        description: 手机号
+        type: string
+      userEmail:
+        description: 用户邮箱
+        type: string
+      userName:
+        description: 用户名称
+        type: string
+    type: object
+  models.Result:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
   models.UsersInfo:
     properties:
       empName:
@@ -19,7 +42,7 @@ definitions:
         description: 雇员编号
         type: string
       userEmail:
-        description: 用户游戏
+        description: 用户邮箱
         type: string
       userId:
         description: 用户Id
@@ -74,6 +97,28 @@ paths:
           schema:
             $ref: '#/definitions/models.UsersInfo'
       summary: 获取用户信息
+      tags:
+      - 用户
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: 注册用户
+      parameters:
+      - description: 注册用户信息
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Result'
+      summary: 注册用户
       tags:
       - 用户
 swagger: "2.0"

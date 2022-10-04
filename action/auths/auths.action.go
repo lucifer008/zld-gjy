@@ -50,7 +50,7 @@ func Authorize() gin.HandlerFunc {
 		for _, v := range nonAuthUrl {
 			if strings.Contains(requestURL, v) {
 				context.Next()
-				break
+				return
 			}
 		}
 		token := context.GetHeader("accesstoken")
