@@ -5,6 +5,7 @@ import (
 	"log"
 	"zld-jy/config"
 	"zld-jy/da/base"
+	"zld-jy/middleware"
 	"zld-jy/routers"
 )
 
@@ -16,7 +17,7 @@ func init() {
 	config.Load(*conf)
 	log.Println(">>>>>>>>>>配置信息>>>>>>>>>>>>", config.Config)
 	base.InitDB()
-
+	middleware.InitRedis()
 }
 func main() {
 	routers.Run()

@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
 	"time"
+	"zld-jy/config"
 	"zld-jy/da/base"
 	"zld-jy/da/query"
+	"zld-jy/middleware"
 	"zld-jy/models"
 	"zld-jy/utils"
 )
@@ -41,8 +43,10 @@ func (impl *AuthServiceImpl) Auths(u models.Users) models.Auths {
 	})
 	//密钥
 	var keyVal interface{}
-	keyVal = []byte("123456")
+	keyVal = []byte(config.Config.Token.Screct)
 	tokenString, err := token.SignedString(keyVal)
 	fmt.Println(tokenString, err)
+	tokenKey := fmt.Sprintf("token:user:%d", userinfo.ID)
+	middleware.Set(tokenKey, tokenString)
 	return models.Auths{Username: userinfo.UserName, EmplyeeName: employee.EmpName, AuthsToken: tokenString, Status: 0, Desc: "成功!"}
 }
