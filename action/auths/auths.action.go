@@ -21,6 +21,8 @@ func init() {
 type AuthsAction struct {
 }
 
+var nonAuthUrl = [2]string{"swagger", "login"}
+
 // Login
 //@Summary 登录接口
 // @Schemes
@@ -45,18 +47,25 @@ func (ah AuthsAction) Login(c *gin.Context) {
 func Authorize() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		requestURL := context.Request.RequestURI
-		if strings.Contains(requestURL, "/login") {
-			context.Next()
+		for _, v := range nonAuthUrl {
+			if strings.Contains(requestURL, v) {
+				context.Next()
+				break
+			}
 		}
 		token := context.GetHeader("accesstoken")
 		if len(token) == 0 {
 			context.Abort()
-			context.JSON(http.StatusUnauthorized, "非法请求")
+			context.JSON(http.StatusUnauthorized, models.Result{Status: http.StatusUnauthorized, Desc: "非法请求"})
+			return
 		}
 		success := checkAuths(token)
-		if success {
-			context.JSON(http.StatusUnauthorized, "Token已过期或者无效Token")
+		if !success {
+			context.Abort()
+			context.JSON(http.StatusUnauthorized, models.Result{Status: http.StatusUnauthorized, Desc: "Token已过期或者无效Token"})
+			return
 		}
+		context.Next()
 	}
 }
 func checkAuths(tokenString string) bool {
