@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"strings"
 	"zld-jy/models"
 	"zld-jy/service/auths"
 )
@@ -37,4 +38,18 @@ func (ah AuthsAction) Login(c *gin.Context) {
 	c.JSONP(http.StatusOK, loginUsers)
 	log.Printf(">>>>>解析后的参数:", users)
 
+}
+func Authorize() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		requestURL := context.Request.RequestURI
+		if strings.Contains(requestURL, "/login") {
+			context.Next()
+		}
+		token := context.GetHeader("accesstoken")
+		if len(token) == 0 {
+			context.Abort()
+			context.JSON(http.StatusUnauthorized, "非法请求")
+		}
+
+	}
 }

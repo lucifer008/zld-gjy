@@ -14,3 +14,5 @@ redis:
   ip: 124.223.63.156
   port: 6379
   password: zxl_1983131313
+token:
+  screct: 123456

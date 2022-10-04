@@ -5,6 +5,7 @@ import (
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
+	"zld-jy/action/auths"
 	"zld-jy/config"
 	"zld-jy/docs"
 )
@@ -18,7 +19,7 @@ func Run() {
 	getRoutes()
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	log.Println(">>>>>>>router 加载成功.........")
-
+	router.Use(auths.Authorize())
 	router.Run(config.Config.Server.Port)
 
 }

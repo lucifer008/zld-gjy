@@ -30,4 +30,7 @@ var Config = struct {
 		Port     string `default:"6379"`
 		Password string `default:"zxlssss"`
 	}
+	Token struct {
+		Screct string `require:"true"`
+	}
 }{}
