@@ -24,7 +24,7 @@ RUN go env -w GO111MODULE=on
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
 
 #拷贝编译程序及配置文件到publish目录
-RUN mkdir publish && cp main app.yaml publish
+RUN mkdir publish && cp main app.yml publish
 
 # 运行阶段指定scratch作为基础镜像
 FROM alpine:3.10

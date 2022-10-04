@@ -3,20 +3,21 @@ package middleware
 import (
 	"context"
 	"github.com/go-redis/redis/v9"
+	"zld-jy/config"
 )
 
 var ctx = context.Background()
 
-const redis_address = "124.223.63.156:6379"
-const redis_password = "zxl_1983131313"
+//const redis_address = "124.223.63.156:6379"
+//const redis_password = "zxl_1983131313"
 
 var rdb *redis.Client
 
 func init() {
 	rdb = redis.NewClient(&redis.Options{
-		Addr:     redis_address,
-		Password: redis_password, // no password set
-		DB:       0,              // use default DB
+		Addr:     config.Config.Redis.Host + ":" + config.Config.Redis.Port,
+		Password: config.Config.Redis.Password, // no password set
+		DB:       0,                            // use default DB
 	})
 }
 func Set(key string, val interface{}) {

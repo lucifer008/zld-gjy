@@ -1,0 +1,16 @@
+server:
+  appname: jy
+  port: :5000
+db:
+  enable: true
+  driver: mysql
+  port: 3306
+  dbname: zld
+  host: 82.157.168.170
+  username: root
+  password: zxl_19831313#@@Qqqq
+  other: charset=utf8mb4&parseTime=True
+redis:
+  ip: 124.223.63.156
+  port: 6379
+  password: zxl_1983131313
