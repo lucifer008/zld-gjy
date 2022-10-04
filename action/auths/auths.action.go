@@ -13,14 +13,14 @@ import (
 	"zld-jy/service/auths"
 )
 
-var Instance *AuthsAction
-
-func init() {
-	Instance = &AuthsAction{}
-}
-
-type AuthsAction struct {
-}
+//var Instance *AuthsAction
+//
+//func init() {
+//	Instance = &AuthsAction{}
+//}
+//
+//type AuthsAction struct {
+//}
 
 var nonAuthUrl = [2]string{"swagger", "login"}
 
@@ -34,7 +34,7 @@ var nonAuthUrl = [2]string{"swagger", "login"}
 // @Produce json
 // @Success 200
 // @Router /auths/login [post]
-func (ah AuthsAction) Login(c *gin.Context) {
+func Login(c *gin.Context) {
 	var users models.LoginUsers
 	if err := c.BindJSON(&users); err != nil {
 		c.JSONP(http.StatusOK, gin.H{"status": "错误:" + err.Error()})

@@ -19,5 +19,5 @@ func addAuthsRouters(rg *gin.RouterGroup) {
 	//	}
 	//	log.Printf(">>>>>>>>>>>请求成功! 用户名:", user.Username, "密码:", user.Password)
 	//})
-	rg.POST("/login", auths.Instance.Login)
+	rg.POST("/login", auths.Login)
 }
