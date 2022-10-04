@@ -29,10 +29,10 @@ func (u *UserServiceImpl) GetUsers(userId string) (us *model.SysUser, em *model.
 	sysUserQuery := qur.SysUser
 	employeeQuery := qur.Employee
 	id, _ := strconv.ParseInt(userId, 10, 64)
-	sysUser, err := sysUserQuery.WithContext(context.Background()).Where(sysUserQuery.ID.Eq(id)).Take()
-	if err != nil {
-		panic(err)
-	}
+	sysUser, _ := sysUserQuery.WithContext(context.Background()).Where(sysUserQuery.ID.Eq(id)).Take()
+	//if err != nil {
+	//	panic(err)
+	//}
 	employee, _ := employeeQuery.WithContext(context.Background()).Where(employeeQuery.ID.Eq(sysUser.EmpID)).Take()
 	return sysUser, employee
 }

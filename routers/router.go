@@ -15,16 +15,14 @@ var router = gin.Default()
 // Run will start the server
 func Run() {
 	log.Println(">>>>>>>start service.........")
-	docs.SwaggerInfo.BasePath = "/api"
-	getRoutes()
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-	log.Println(">>>>>>>router 加载成功.........")
+	router.Use(auths.GlobalExceptonHandler)
 	router.Use(auths.Authorize())
-	//router.RouterGroup.Use(auths.Authorize())
+	bindRoutes()
+	bindSwagger()
 	router.Run(config.Config.Server.Port)
 
 }
-func getRoutes() {
+func bindRoutes() {
 	user := router.Group("/api/users")
 	order := router.Group("/api/orders")
 	customer := router.Group("/api/customers")
@@ -41,4 +39,8 @@ func getRoutes() {
 	addFinanceRouters(finance)
 	addCommonsRouters(commons)
 	addStatsRouters(stat)
+}
+func bindSwagger() {
+	docs.SwaggerInfo.BasePath = "/api"
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }

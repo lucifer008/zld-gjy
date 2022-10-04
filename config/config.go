@@ -18,9 +18,9 @@ var Config = struct {
 	DB struct {
 		Enable   bool   `default:"false"`
 		Driver   string `default:"mysql"`
-		Host     string `deault:"127.0.0.1"`
+		Host     string `default:"127.0.0.1"`
 		Dbname   string `default:"zld"`
-		Port     string `deault:"3306"`
+		Port     string `default:"3306"`
 		Username string `default:"root"`
 		Password string `default:"password"`
 		Other    string `default:"charset=utf8mb4&parseTime=True"`

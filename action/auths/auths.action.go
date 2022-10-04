@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"log"
 	"net/http"
+	"runtime/debug"
 	"strings"
 	"zld-jy/config"
 	"zld-jy/models"
@@ -83,4 +85,30 @@ func checkAuths(tokenString string) bool {
 		return true
 	}
 	return false
+}
+func GlobalExceptonHandler(c *gin.Context) {
+	defer func() {
+		if r := recover(); r != nil {
+			//打印错误堆栈信息
+			log.Printf(">>>>>>>>>>>>>>>错误>>>>>>>>>>>>>>>: %v\n", r)
+			debug.PrintStack()
+			c.JSON(http.StatusOK, models.Result{
+				Code:    1001,
+				Message: "地址错误或者参数错误!",
+			})
+			c.Abort()
+		}
+	}()
+	//加载完 defer recover，继续后续接口调用
+	c.Next()
+}
+
+// recover错误，转string
+func errorToString(r interface{}) string {
+	switch v := r.(type) {
+	case error:
+		return v.Error()
+	default:
+		return r.(string)
+	}
 }
