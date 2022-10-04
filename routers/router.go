@@ -20,7 +20,7 @@ func Run() {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	log.Println(">>>>>>>router 加载成功.........")
 	router.Use(auths.Authorize())
-	router.RouterGroup.Use(auths.Authorize())
+	//router.RouterGroup.Use(auths.Authorize())
 	router.Run(config.Config.Server.Port)
 
 }
