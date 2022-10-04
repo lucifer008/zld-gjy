@@ -1,10 +1,13 @@
 package auths
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 	"log"
 	"net/http"
 	"strings"
+	"zld-jy/config"
 	"zld-jy/models"
 	"zld-jy/service/auths"
 )
@@ -50,6 +53,27 @@ func Authorize() gin.HandlerFunc {
 			context.Abort()
 			context.JSON(http.StatusUnauthorized, "非法请求")
 		}
-
+		success := checkAuths(token)
+		if success {
+			context.JSON(http.StatusUnauthorized, "Token已过期或者无效Token")
+		}
 	}
+}
+func checkAuths(tokenString string) bool {
+	var keyVal interface{}
+	keyVal = []byte(config.Config.Token.Screct)
+	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		// Don't forget to validate the alg is what you expect:
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+		}
+		token.Valid = true
+		// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
+		return keyVal, nil
+	})
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		fmt.Println(">>>>>>Token认证信息>>>>>>>", claims["userId"], claims["username"], claims["nbf"])
+		return true
+	}
+	return false
 }
