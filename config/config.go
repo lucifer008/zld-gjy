@@ -32,5 +32,6 @@ var Config = struct {
 	}
 	Token struct {
 		Screct string `require:"true"`
+		Enable bool   `require:"false"`
 	}
 }{}

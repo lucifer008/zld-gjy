@@ -46,6 +46,11 @@ func Login(c *gin.Context) {
 }
 func Authorize() gin.HandlerFunc {
 	return func(context *gin.Context) {
+		if !config.Config.Token.Enable {
+			context.Next()
+			return
+		}
+
 		requestURL := context.Request.RequestURI
 		for _, v := range nonAuthUrl {
 			if strings.Contains(requestURL, v) {

@@ -11,6 +11,9 @@ db:
   password: zxl_19831313#@@Qqqq
   other: charset=utf8mb4&parseTime=True
 redis:
-  ip: 124.223.63.156
+  host: 124.223.63.156
   port: 6379
   password: zxl_1983131313
+token:
+  screct: 123456
+  enable : false
