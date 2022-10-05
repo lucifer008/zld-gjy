@@ -19,9 +19,10 @@ func init() {
 	//)
 	log.Println("init....................")
 }
-func TestMain(t *testing.M) {
-	log.Println("main....................")
-}
+
+//func TestMain(t *testing.M) {
+//	log.Println("main....................")
+//}
 
 //重新映射实体
 func TestAdvanceQuery(t *testing.T) {
