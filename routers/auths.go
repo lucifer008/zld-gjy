@@ -3,7 +3,7 @@ package routers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"zld-jy/action/auths"
+	"zld-jy/action"
 )
 
 func addAuthsRouters(rg *gin.RouterGroup) {
@@ -19,5 +19,5 @@ func addAuthsRouters(rg *gin.RouterGroup) {
 	//	}
 	//	log.Printf(">>>>>>>>>>>请求成功! 用户名:", user.Username, "密码:", user.Password)
 	//})
-	rg.POST("/login", auths.Login)
+	rg.POST("/login", action.Login)
 }

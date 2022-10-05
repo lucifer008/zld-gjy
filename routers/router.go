@@ -5,7 +5,7 @@ import (
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
-	"zld-jy/action/auths"
+	"zld-jy/action"
 	"zld-jy/config"
 	"zld-jy/docs"
 )
@@ -15,8 +15,8 @@ var router = gin.Default()
 // Run will start the server
 func Run() {
 	log.Println(">>>>>>>start service.........")
-	router.Use(auths.GlobalExceptonHandler)
-	router.Use(auths.Authorize())
+	router.Use(action.GlobalExceptonHandler)
+	router.Use(action.Authorize())
 	bindRoutes()
 	bindSwagger()
 	router.Run(config.Config.Server.Port)
@@ -42,5 +42,9 @@ func bindRoutes() {
 }
 func bindSwagger() {
 	docs.SwaggerInfo.BasePath = "/api"
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler, swaggerConfig))
+}
+
+func swaggerConfig(config *ginSwagger.Config) {
+	config.Oauth2DefaultClientID = "swagger-client"
 }

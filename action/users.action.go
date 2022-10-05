@@ -1,4 +1,4 @@
-package action_users
+package action
 
 import (
 	"zld-jy/models"
