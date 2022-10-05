@@ -11,6 +11,7 @@ func init() {
 }
 
 type CustomerAction struct {
+	BaseAction
 }
 
 // Query
@@ -25,5 +26,6 @@ type CustomerAction struct {
 // @Router /customers/query [get]
 func (customerAction CustomerAction) Query(customers models.Customers) (total int64, data []models.Customers) {
 	total = 10
+
 	return total, data
 }

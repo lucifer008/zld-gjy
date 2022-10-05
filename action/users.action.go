@@ -12,6 +12,7 @@ func init() {
 }
 
 type UsersAction struct {
+	BaseAction
 }
 
 // GetUserInfo
