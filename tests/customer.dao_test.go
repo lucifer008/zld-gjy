@@ -15,8 +15,9 @@ func Test_InitCustomers(t *testing.T) {
 	//log.Println(areaList)
 	count, _ := qur.Customer.WithContext(ctx).Count()
 	var rows = 10
+	var id = count + 1
 	for index := 1; index < rows; index++ {
-		var id = count + 1
+
 		qur.Customer.WithContext(ctx).Create(&model.Customer{
 			ID:              id,
 			CustomerName:    "张三公司" + strconv.FormatInt(id, 10),
@@ -34,5 +35,6 @@ func Test_InitCustomers(t *testing.T) {
 			CompayID:        1,
 			Version:         0,
 		})
+		id++
 	}
 }
