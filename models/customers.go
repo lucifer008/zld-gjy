@@ -1,6 +1,6 @@
 package models
 
 type Customers struct {
-	Base         Base
-	CustomerName string
+	Base
+	CustomerName string `form:"customerName" json:"customerName" example:"客户名称"`
 }

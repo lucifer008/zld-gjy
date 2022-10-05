@@ -35,6 +35,45 @@
                 }
             }
         },
+        "/customers/query": {
+            "get": {
+                "description": "查询客户信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "客户"
+                ],
+                "summary": "查询客户信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "name": "currentIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "customerName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 10,
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/users/getUsers": {
             "get": {
                 "description": "根据用户ID获取用户信息",
