@@ -3,11 +3,13 @@ package action
 import (
 	"context"
 	"errors"
+	"log"
 	"zld-jy/da/base"
 	"zld-jy/da/dao"
 	"zld-jy/da/domain"
 	"zld-jy/models"
 	"zld-jy/service/users"
+	"zld-jy/support"
 	"zld-jy/utils"
 )
 
@@ -33,6 +35,7 @@ type UsersAction struct {
 // @Router /users/getUsers [get]
 func (uh *UsersAction) GetUserInfo(userId string) models.UsersInfo {
 	//log.Println(">>>>>>>>>>>>>>>>>>>>>>>>>UserAction>>>>>GetUserInfo>>>>>>>>>>>")
+	log.Println(">>>>>>>>>>>>>>>>当前用户信息>>>>>>>>>>>>>>>", support.UserContextInstance.GetCurrentUser())
 	us, em := service_users.Instance.GetUsers(userId)
 	return models.UsersInfo{UserId: us.ID, UserName: us.UserName, UserEmail: us.UserEmail, UserType: us.UserType, EmpNo: em.EmpNo, EmpName: em.EmpName}
 }

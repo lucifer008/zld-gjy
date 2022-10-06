@@ -18,3 +18,11 @@ type RegisterUser struct {
 	Tel       string `json:"tel" example:"18011329010"`            //手机号
 	Password  string `json:"password" example:"zxl222@asas"`       //密码
 }
+type CurrentUsers struct {
+	UserId    int64  //用户Id
+	UserName  string //用户名称
+	UserEmail string //用户邮箱
+	UserType  int32  //用户类型
+	EmpNo     string //雇员编号
+	EmpName   string //雇员名称
+}

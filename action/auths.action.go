@@ -11,6 +11,7 @@ import (
 	"zld-jy/config"
 	"zld-jy/models"
 	"zld-jy/service/auths"
+	"zld-jy/support"
 )
 
 //var UserActionInstance *AuthsAction
@@ -87,6 +88,8 @@ func checkAuths(tokenString string) bool {
 	})
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		fmt.Println(">>>>>>Token认证信息>>>>>>>", claims["userId"], claims["username"], claims["nbf"])
+		currentUser := models.CurrentUsers{UserId: int64(claims["userId"].(float64)), UserName: claims["username"].(string)}
+		support.UserContextInstance.SetCurrentUser(currentUser)
 		return true
 	}
 	return false
