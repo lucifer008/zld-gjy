@@ -13,10 +13,10 @@ import (
 	"zld-jy/service/auths"
 )
 
-//var Instance *AuthsAction
+//var UserActionInstance *AuthsAction
 //
 //func init() {
-//	Instance = &AuthsAction{}
+//	UserActionInstance = &AuthsAction{}
 //}
 //
 //type AuthsAction struct {

@@ -1,14 +1,20 @@
 package action
 
 import (
+	"context"
+	"errors"
+	"zld-jy/da/base"
+	"zld-jy/da/model"
+	"zld-jy/da/query"
 	"zld-jy/models"
 	"zld-jy/service/users"
+	"zld-jy/utils"
 )
 
-var Instance *UsersAction
+var UserActionInstance *UsersAction
 
 func init() {
-	Instance = &UsersAction{}
+	UserActionInstance = &UsersAction{}
 }
 
 type UsersAction struct {
@@ -41,6 +47,56 @@ func (uh *UsersAction) GetUserInfo(userId string) models.UsersInfo {
 // @Produce json
 // @Success 200 {object} models.Result
 // @Router /users/register [post]
-func Register(ru models.RegisterUser) {
+func (ua *UsersAction) Register(users models.RegisterUser) error {
+	qur := query.Use(base.DB)
+	if users.UserName == "" {
+		return errors.New("用户名不能为空")
+	}
+	if users.Password == "" {
+		return errors.New("密码不能为空")
+	}
+	if users.UserEmail == "" {
+		return errors.New("邮箱不能为空")
+	}
+	count, _ := qur.SysUser.WithContext(context.Background()).Or(qur.SysUser.UserName.Eq(users.UserName)).Or(qur.SysUser.UserEmail.Eq(users.UserEmail)).Count()
+	if count > 0 {
+		return errors.New("用户名或者邮箱已存在")
+	}
 
+	qur.Transaction(func(tx *query.Query) error {
+		var empId, _ = qur.Employee.WithContext(context.Background()).Count()
+		var employee model.Employee
+		employee = model.Employee{
+			ID:             empId + 1,
+			EmpNo:          "001",
+			EmpName:        users.UserName,
+			InsertDateTime: insertDatetime,
+			InsertUser:     insertUser,
+			UpdateUser:     updateUser,
+			UpdateDateTime: updateDatetime,
+			Deleted:        deleted,
+			Version:        version,
+		}
+		qur.Employee.WithContext(context.Background()).Create(&employee)
+		var userId, _ = qur.SysUser.WithContext(context.Background()).Count()
+		var sysUsers model.SysUser
+		sysUsers = model.SysUser{ID: userId + 1,
+			EmpID:          empId,
+			UserName:       users.UserName,
+			UserEmail:      users.UserEmail,
+			UserPassword:   utils.MD5(users.Password),
+			UserStatus:     0,
+			UserType:       1,
+			InsertUser:     insertUser,
+			InsertDateTime: insertDatetime,
+			UpdateUser:     updateUser,
+			UpdateDateTime: updateDatetime,
+			Deleted:        deleted,
+			Version:        version,
+			CompayID:       companyId,
+		}
+		qur.SysUser.WithContext(context.Background()).Create(&sysUsers)
+		return nil
+	})
+	return nil
 }
