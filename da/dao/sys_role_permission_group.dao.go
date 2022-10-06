@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newSysRolePermissionGroup(db *gorm.DB) sysRolePermissionGroup {
 	_sysRolePermissionGroup := sysRolePermissionGroup{}
 
 	_sysRolePermissionGroup.sysRolePermissionGroupDo.UseDB(db)
-	_sysRolePermissionGroup.sysRolePermissionGroupDo.UseModel(&model.SysRolePermissionGroup{})
+	_sysRolePermissionGroup.sysRolePermissionGroupDo.UseModel(&domain.SysRolePermissionGroup{})
 
 	tableName := _sysRolePermissionGroup.sysRolePermissionGroupDo.TableName()
 	_sysRolePermissionGroup.ALL = field.NewAsterisk(tableName)
@@ -191,57 +191,57 @@ func (s sysRolePermissionGroupDo) Unscoped() *sysRolePermissionGroupDo {
 	return s.withDO(s.DO.Unscoped())
 }
 
-func (s sysRolePermissionGroupDo) Create(values ...*model.SysRolePermissionGroup) error {
+func (s sysRolePermissionGroupDo) Create(values ...*domain.SysRolePermissionGroup) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Create(values)
 }
 
-func (s sysRolePermissionGroupDo) CreateInBatches(values []*model.SysRolePermissionGroup, batchSize int) error {
+func (s sysRolePermissionGroupDo) CreateInBatches(values []*domain.SysRolePermissionGroup, batchSize int) error {
 	return s.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (s sysRolePermissionGroupDo) Save(values ...*model.SysRolePermissionGroup) error {
+func (s sysRolePermissionGroupDo) Save(values ...*domain.SysRolePermissionGroup) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Save(values)
 }
 
-func (s sysRolePermissionGroupDo) First() (*model.SysRolePermissionGroup, error) {
+func (s sysRolePermissionGroupDo) First() (*domain.SysRolePermissionGroup, error) {
 	if result, err := s.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysRolePermissionGroup), nil
+		return result.(*domain.SysRolePermissionGroup), nil
 	}
 }
 
-func (s sysRolePermissionGroupDo) Take() (*model.SysRolePermissionGroup, error) {
+func (s sysRolePermissionGroupDo) Take() (*domain.SysRolePermissionGroup, error) {
 	if result, err := s.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysRolePermissionGroup), nil
+		return result.(*domain.SysRolePermissionGroup), nil
 	}
 }
 
-func (s sysRolePermissionGroupDo) Last() (*model.SysRolePermissionGroup, error) {
+func (s sysRolePermissionGroupDo) Last() (*domain.SysRolePermissionGroup, error) {
 	if result, err := s.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysRolePermissionGroup), nil
+		return result.(*domain.SysRolePermissionGroup), nil
 	}
 }
 
-func (s sysRolePermissionGroupDo) Find() ([]*model.SysRolePermissionGroup, error) {
+func (s sysRolePermissionGroupDo) Find() ([]*domain.SysRolePermissionGroup, error) {
 	result, err := s.DO.Find()
-	return result.([]*model.SysRolePermissionGroup), err
+	return result.([]*domain.SysRolePermissionGroup), err
 }
 
-func (s sysRolePermissionGroupDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.SysRolePermissionGroup, err error) {
-	buf := make([]*model.SysRolePermissionGroup, 0, batchSize)
+func (s sysRolePermissionGroupDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.SysRolePermissionGroup, err error) {
+	buf := make([]*domain.SysRolePermissionGroup, 0, batchSize)
 	err = s.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -249,7 +249,7 @@ func (s sysRolePermissionGroupDo) FindInBatch(batchSize int, fc func(tx gen.Dao,
 	return results, err
 }
 
-func (s sysRolePermissionGroupDo) FindInBatches(result *[]*model.SysRolePermissionGroup, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (s sysRolePermissionGroupDo) FindInBatches(result *[]*domain.SysRolePermissionGroup, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return s.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -275,23 +275,23 @@ func (s sysRolePermissionGroupDo) Preload(fields ...field.RelationField) *sysRol
 	return &s
 }
 
-func (s sysRolePermissionGroupDo) FirstOrInit() (*model.SysRolePermissionGroup, error) {
+func (s sysRolePermissionGroupDo) FirstOrInit() (*domain.SysRolePermissionGroup, error) {
 	if result, err := s.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysRolePermissionGroup), nil
+		return result.(*domain.SysRolePermissionGroup), nil
 	}
 }
 
-func (s sysRolePermissionGroupDo) FirstOrCreate() (*model.SysRolePermissionGroup, error) {
+func (s sysRolePermissionGroupDo) FirstOrCreate() (*domain.SysRolePermissionGroup, error) {
 	if result, err := s.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysRolePermissionGroup), nil
+		return result.(*domain.SysRolePermissionGroup), nil
 	}
 }
 
-func (s sysRolePermissionGroupDo) FindByPage(offset int, limit int) (result []*model.SysRolePermissionGroup, count int64, err error) {
+func (s sysRolePermissionGroupDo) FindByPage(offset int, limit int) (result []*domain.SysRolePermissionGroup, count int64, err error) {
 	result, err = s.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -320,7 +320,7 @@ func (s sysRolePermissionGroupDo) Scan(result interface{}) (err error) {
 	return s.DO.Scan(result)
 }
 
-func (s sysRolePermissionGroupDo) Delete(models ...*model.SysRolePermissionGroup) (result gen.ResultInfo, err error) {
+func (s sysRolePermissionGroupDo) Delete(models ...*domain.SysRolePermissionGroup) (result gen.ResultInfo, err error) {
 	return s.DO.Delete(models)
 }
 

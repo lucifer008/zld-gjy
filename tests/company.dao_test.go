@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 	"zld-jy/da/dao"
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 //测试create
@@ -15,7 +15,7 @@ func Test_newCompany(t *testing.T) {
 	u := dao.Company
 
 	id, _ := u.WithContext(ctx).Count()
-	err := u.WithContext(ctx).Create(&model.Company{
+	err := u.WithContext(ctx).Create(&domain.Company{
 		ID:          id + 1,
 		CompanyName: "测试", RegisterDateTime: time.Now(),
 		InsertUser:     1,
@@ -26,7 +26,7 @@ func Test_newCompany(t *testing.T) {
 		Deleted:        "0",
 	})
 	if err != nil {
-		t.Errorf("create model fail: %s", err)
+		t.Errorf("create domain fail: %s", err)
 	}
 }
 
@@ -37,7 +37,7 @@ func Test_Trans(t *testing.T) {
 		id, _ := tx.Company.WithContext(ctx).Count()
 		ids := id + 1
 		fmt.Println("插入Id", ids)
-		tx.Company.WithContext(ctx).Create(&model.Company{
+		tx.Company.WithContext(ctx).Create(&domain.Company{
 			ID:          id + 1,
 			CompanyName: "测试", RegisterDateTime: time.Now(),
 			InsertUser:     1,
@@ -50,7 +50,7 @@ func Test_Trans(t *testing.T) {
 		if ids > 1 {
 			panic("手动异常，测试回滚!")
 		}
-		tx.Company.WithContext(ctx).Delete(&model.Company{ID: id + 11})
+		tx.Company.WithContext(ctx).Delete(&domain.Company{ID: id + 11})
 
 		return nil
 	})
@@ -63,7 +63,7 @@ func Test_Trans(t *testing.T) {
 //测试list
 func Test_Company_Query(t *testing.T) {
 	qur := dao.Use(DB)
-	//var comList []*model.Company
+	//var comList []*domain.Company
 	comList, err := qur.Company.WithContext(ctx).Find()
 	if err != nil {
 		fmt.Errorf("错误>>>>%w", err)

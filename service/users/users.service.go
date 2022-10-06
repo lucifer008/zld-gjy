@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"zld-jy/da/base"
 	"zld-jy/da/dao"
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 type UsersService interface {
@@ -21,7 +21,7 @@ func init() {
 type UserServiceImpl struct {
 }
 
-func (u *UserServiceImpl) GetUsers(userId string) (us *model.SysUser, em *model.Employee) {
+func (u *UserServiceImpl) GetUsers(userId string) (us *domain.SysUser, em *domain.Employee) {
 	if userId == "" {
 		panic("用户Id不能为空!")
 	}

@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newCompany(db *gorm.DB) company {
 	_company := company{}
 
 	_company.companyDo.UseDB(db)
-	_company.companyDo.UseModel(&model.Company{})
+	_company.companyDo.UseModel(&domain.Company{})
 
 	tableName := _company.companyDo.TableName()
 	_company.ALL = field.NewAsterisk(tableName)
@@ -225,57 +225,57 @@ func (c companyDo) Unscoped() *companyDo {
 	return c.withDO(c.DO.Unscoped())
 }
 
-func (c companyDo) Create(values ...*model.Company) error {
+func (c companyDo) Create(values ...*domain.Company) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return c.DO.Create(values)
 }
 
-func (c companyDo) CreateInBatches(values []*model.Company, batchSize int) error {
+func (c companyDo) CreateInBatches(values []*domain.Company, batchSize int) error {
 	return c.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (c companyDo) Save(values ...*model.Company) error {
+func (c companyDo) Save(values ...*domain.Company) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return c.DO.Save(values)
 }
 
-func (c companyDo) First() (*model.Company, error) {
+func (c companyDo) First() (*domain.Company, error) {
 	if result, err := c.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Company), nil
+		return result.(*domain.Company), nil
 	}
 }
 
-func (c companyDo) Take() (*model.Company, error) {
+func (c companyDo) Take() (*domain.Company, error) {
 	if result, err := c.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Company), nil
+		return result.(*domain.Company), nil
 	}
 }
 
-func (c companyDo) Last() (*model.Company, error) {
+func (c companyDo) Last() (*domain.Company, error) {
 	if result, err := c.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Company), nil
+		return result.(*domain.Company), nil
 	}
 }
 
-func (c companyDo) Find() ([]*model.Company, error) {
+func (c companyDo) Find() ([]*domain.Company, error) {
 	result, err := c.DO.Find()
-	return result.([]*model.Company), err
+	return result.([]*domain.Company), err
 }
 
-func (c companyDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.Company, err error) {
-	buf := make([]*model.Company, 0, batchSize)
+func (c companyDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.Company, err error) {
+	buf := make([]*domain.Company, 0, batchSize)
 	err = c.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -283,7 +283,7 @@ func (c companyDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) err
 	return results, err
 }
 
-func (c companyDo) FindInBatches(result *[]*model.Company, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (c companyDo) FindInBatches(result *[]*domain.Company, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return c.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -309,23 +309,23 @@ func (c companyDo) Preload(fields ...field.RelationField) *companyDo {
 	return &c
 }
 
-func (c companyDo) FirstOrInit() (*model.Company, error) {
+func (c companyDo) FirstOrInit() (*domain.Company, error) {
 	if result, err := c.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Company), nil
+		return result.(*domain.Company), nil
 	}
 }
 
-func (c companyDo) FirstOrCreate() (*model.Company, error) {
+func (c companyDo) FirstOrCreate() (*domain.Company, error) {
 	if result, err := c.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Company), nil
+		return result.(*domain.Company), nil
 	}
 }
 
-func (c companyDo) FindByPage(offset int, limit int) (result []*model.Company, count int64, err error) {
+func (c companyDo) FindByPage(offset int, limit int) (result []*domain.Company, count int64, err error) {
 	result, err = c.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -354,7 +354,7 @@ func (c companyDo) Scan(result interface{}) (err error) {
 	return c.DO.Scan(result)
 }
 
-func (c companyDo) Delete(models ...*model.Company) (result gen.ResultInfo, err error) {
+func (c companyDo) Delete(models ...*domain.Company) (result gen.ResultInfo, err error) {
 	return c.DO.Delete(models)
 }
 

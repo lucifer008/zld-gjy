@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"testing"
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func init() {
@@ -33,7 +33,7 @@ func TestAdvanceQuery(t *testing.T) {
 	}
 	//uy := dao.Use(DB)
 	var customerUser = &CustomerUser{}
-	DB.Model(&model.SysUser{}).Find(customerUser)
+	DB.Model(&domain.SysUser{}).Find(customerUser)
 	fmt.Println(customerUser)
 }
 

@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newVehicle(db *gorm.DB) vehicle {
 	_vehicle := vehicle{}
 
 	_vehicle.vehicleDo.UseDB(db)
-	_vehicle.vehicleDo.UseModel(&model.Vehicle{})
+	_vehicle.vehicleDo.UseModel(&domain.Vehicle{})
 
 	tableName := _vehicle.vehicleDo.TableName()
 	_vehicle.ALL = field.NewAsterisk(tableName)
@@ -201,57 +201,57 @@ func (v vehicleDo) Unscoped() *vehicleDo {
 	return v.withDO(v.DO.Unscoped())
 }
 
-func (v vehicleDo) Create(values ...*model.Vehicle) error {
+func (v vehicleDo) Create(values ...*domain.Vehicle) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return v.DO.Create(values)
 }
 
-func (v vehicleDo) CreateInBatches(values []*model.Vehicle, batchSize int) error {
+func (v vehicleDo) CreateInBatches(values []*domain.Vehicle, batchSize int) error {
 	return v.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (v vehicleDo) Save(values ...*model.Vehicle) error {
+func (v vehicleDo) Save(values ...*domain.Vehicle) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return v.DO.Save(values)
 }
 
-func (v vehicleDo) First() (*model.Vehicle, error) {
+func (v vehicleDo) First() (*domain.Vehicle, error) {
 	if result, err := v.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Vehicle), nil
+		return result.(*domain.Vehicle), nil
 	}
 }
 
-func (v vehicleDo) Take() (*model.Vehicle, error) {
+func (v vehicleDo) Take() (*domain.Vehicle, error) {
 	if result, err := v.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Vehicle), nil
+		return result.(*domain.Vehicle), nil
 	}
 }
 
-func (v vehicleDo) Last() (*model.Vehicle, error) {
+func (v vehicleDo) Last() (*domain.Vehicle, error) {
 	if result, err := v.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Vehicle), nil
+		return result.(*domain.Vehicle), nil
 	}
 }
 
-func (v vehicleDo) Find() ([]*model.Vehicle, error) {
+func (v vehicleDo) Find() ([]*domain.Vehicle, error) {
 	result, err := v.DO.Find()
-	return result.([]*model.Vehicle), err
+	return result.([]*domain.Vehicle), err
 }
 
-func (v vehicleDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.Vehicle, err error) {
-	buf := make([]*model.Vehicle, 0, batchSize)
+func (v vehicleDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.Vehicle, err error) {
+	buf := make([]*domain.Vehicle, 0, batchSize)
 	err = v.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -259,7 +259,7 @@ func (v vehicleDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) err
 	return results, err
 }
 
-func (v vehicleDo) FindInBatches(result *[]*model.Vehicle, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (v vehicleDo) FindInBatches(result *[]*domain.Vehicle, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return v.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -285,23 +285,23 @@ func (v vehicleDo) Preload(fields ...field.RelationField) *vehicleDo {
 	return &v
 }
 
-func (v vehicleDo) FirstOrInit() (*model.Vehicle, error) {
+func (v vehicleDo) FirstOrInit() (*domain.Vehicle, error) {
 	if result, err := v.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Vehicle), nil
+		return result.(*domain.Vehicle), nil
 	}
 }
 
-func (v vehicleDo) FirstOrCreate() (*model.Vehicle, error) {
+func (v vehicleDo) FirstOrCreate() (*domain.Vehicle, error) {
 	if result, err := v.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Vehicle), nil
+		return result.(*domain.Vehicle), nil
 	}
 }
 
-func (v vehicleDo) FindByPage(offset int, limit int) (result []*model.Vehicle, count int64, err error) {
+func (v vehicleDo) FindByPage(offset int, limit int) (result []*domain.Vehicle, count int64, err error) {
 	result, err = v.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -330,7 +330,7 @@ func (v vehicleDo) Scan(result interface{}) (err error) {
 	return v.DO.Scan(result)
 }
 
-func (v vehicleDo) Delete(models ...*model.Vehicle) (result gen.ResultInfo, err error) {
+func (v vehicleDo) Delete(models ...*domain.Vehicle) (result gen.ResultInfo, err error) {
 	return v.DO.Delete(models)
 }
 

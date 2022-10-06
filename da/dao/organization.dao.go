@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newOrganization(db *gorm.DB) organization {
 	_organization := organization{}
 
 	_organization.organizationDo.UseDB(db)
-	_organization.organizationDo.UseModel(&model.Organization{})
+	_organization.organizationDo.UseModel(&domain.Organization{})
 
 	tableName := _organization.organizationDo.TableName()
 	_organization.ALL = field.NewAsterisk(tableName)
@@ -235,57 +235,57 @@ func (o organizationDo) Unscoped() *organizationDo {
 	return o.withDO(o.DO.Unscoped())
 }
 
-func (o organizationDo) Create(values ...*model.Organization) error {
+func (o organizationDo) Create(values ...*domain.Organization) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return o.DO.Create(values)
 }
 
-func (o organizationDo) CreateInBatches(values []*model.Organization, batchSize int) error {
+func (o organizationDo) CreateInBatches(values []*domain.Organization, batchSize int) error {
 	return o.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (o organizationDo) Save(values ...*model.Organization) error {
+func (o organizationDo) Save(values ...*domain.Organization) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return o.DO.Save(values)
 }
 
-func (o organizationDo) First() (*model.Organization, error) {
+func (o organizationDo) First() (*domain.Organization, error) {
 	if result, err := o.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Organization), nil
+		return result.(*domain.Organization), nil
 	}
 }
 
-func (o organizationDo) Take() (*model.Organization, error) {
+func (o organizationDo) Take() (*domain.Organization, error) {
 	if result, err := o.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Organization), nil
+		return result.(*domain.Organization), nil
 	}
 }
 
-func (o organizationDo) Last() (*model.Organization, error) {
+func (o organizationDo) Last() (*domain.Organization, error) {
 	if result, err := o.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Organization), nil
+		return result.(*domain.Organization), nil
 	}
 }
 
-func (o organizationDo) Find() ([]*model.Organization, error) {
+func (o organizationDo) Find() ([]*domain.Organization, error) {
 	result, err := o.DO.Find()
-	return result.([]*model.Organization), err
+	return result.([]*domain.Organization), err
 }
 
-func (o organizationDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.Organization, err error) {
-	buf := make([]*model.Organization, 0, batchSize)
+func (o organizationDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.Organization, err error) {
+	buf := make([]*domain.Organization, 0, batchSize)
 	err = o.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -293,7 +293,7 @@ func (o organizationDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int
 	return results, err
 }
 
-func (o organizationDo) FindInBatches(result *[]*model.Organization, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (o organizationDo) FindInBatches(result *[]*domain.Organization, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return o.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -319,23 +319,23 @@ func (o organizationDo) Preload(fields ...field.RelationField) *organizationDo {
 	return &o
 }
 
-func (o organizationDo) FirstOrInit() (*model.Organization, error) {
+func (o organizationDo) FirstOrInit() (*domain.Organization, error) {
 	if result, err := o.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Organization), nil
+		return result.(*domain.Organization), nil
 	}
 }
 
-func (o organizationDo) FirstOrCreate() (*model.Organization, error) {
+func (o organizationDo) FirstOrCreate() (*domain.Organization, error) {
 	if result, err := o.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Organization), nil
+		return result.(*domain.Organization), nil
 	}
 }
 
-func (o organizationDo) FindByPage(offset int, limit int) (result []*model.Organization, count int64, err error) {
+func (o organizationDo) FindByPage(offset int, limit int) (result []*domain.Organization, count int64, err error) {
 	result, err = o.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -364,7 +364,7 @@ func (o organizationDo) Scan(result interface{}) (err error) {
 	return o.DO.Scan(result)
 }
 
-func (o organizationDo) Delete(models ...*model.Organization) (result gen.ResultInfo, err error) {
+func (o organizationDo) Delete(models ...*domain.Organization) (result gen.ResultInfo, err error) {
 	return o.DO.Delete(models)
 }
 

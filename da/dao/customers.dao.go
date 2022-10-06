@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newCustomer(db *gorm.DB) customer {
 	_customer := customer{}
 
 	_customer.customerDo.UseDB(db)
-	_customer.customerDo.UseModel(&model.Customer{})
+	_customer.customerDo.UseModel(&domain.Customer{})
 
 	tableName := _customer.customerDo.TableName()
 	_customer.ALL = field.NewAsterisk(tableName)
@@ -245,57 +245,57 @@ func (c customerDo) Unscoped() *customerDo {
 	return c.withDO(c.DO.Unscoped())
 }
 
-func (c customerDo) Create(values ...*model.Customer) error {
+func (c customerDo) Create(values ...*domain.Customer) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return c.DO.Create(values)
 }
 
-func (c customerDo) CreateInBatches(values []*model.Customer, batchSize int) error {
+func (c customerDo) CreateInBatches(values []*domain.Customer, batchSize int) error {
 	return c.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (c customerDo) Save(values ...*model.Customer) error {
+func (c customerDo) Save(values ...*domain.Customer) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return c.DO.Save(values)
 }
 
-func (c customerDo) First() (*model.Customer, error) {
+func (c customerDo) First() (*domain.Customer, error) {
 	if result, err := c.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Customer), nil
+		return result.(*domain.Customer), nil
 	}
 }
 
-func (c customerDo) Take() (*model.Customer, error) {
+func (c customerDo) Take() (*domain.Customer, error) {
 	if result, err := c.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Customer), nil
+		return result.(*domain.Customer), nil
 	}
 }
 
-func (c customerDo) Last() (*model.Customer, error) {
+func (c customerDo) Last() (*domain.Customer, error) {
 	if result, err := c.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Customer), nil
+		return result.(*domain.Customer), nil
 	}
 }
 
-func (c customerDo) Find() ([]*model.Customer, error) {
+func (c customerDo) Find() ([]*domain.Customer, error) {
 	result, err := c.DO.Find()
-	return result.([]*model.Customer), err
+	return result.([]*domain.Customer), err
 }
 
-func (c customerDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.Customer, err error) {
-	buf := make([]*model.Customer, 0, batchSize)
+func (c customerDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.Customer, err error) {
+	buf := make([]*domain.Customer, 0, batchSize)
 	err = c.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -303,7 +303,7 @@ func (c customerDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) er
 	return results, err
 }
 
-func (c customerDo) FindInBatches(result *[]*model.Customer, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (c customerDo) FindInBatches(result *[]*domain.Customer, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return c.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -329,23 +329,23 @@ func (c customerDo) Preload(fields ...field.RelationField) *customerDo {
 	return &c
 }
 
-func (c customerDo) FirstOrInit() (*model.Customer, error) {
+func (c customerDo) FirstOrInit() (*domain.Customer, error) {
 	if result, err := c.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Customer), nil
+		return result.(*domain.Customer), nil
 	}
 }
 
-func (c customerDo) FirstOrCreate() (*model.Customer, error) {
+func (c customerDo) FirstOrCreate() (*domain.Customer, error) {
 	if result, err := c.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Customer), nil
+		return result.(*domain.Customer), nil
 	}
 }
 
-func (c customerDo) FindByPage(offset int, limit int) (result []*model.Customer, count int64, err error) {
+func (c customerDo) FindByPage(offset int, limit int) (result []*domain.Customer, count int64, err error) {
 	result, err = c.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -374,7 +374,7 @@ func (c customerDo) Scan(result interface{}) (err error) {
 	return c.DO.Scan(result)
 }
 
-func (c customerDo) Delete(models ...*model.Customer) (result gen.ResultInfo, err error) {
+func (c customerDo) Delete(models ...*domain.Customer) (result gen.ResultInfo, err error) {
 	return c.DO.Delete(models)
 }
 

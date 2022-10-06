@@ -5,7 +5,7 @@ import (
 	"errors"
 	"zld-jy/da/base"
 	"zld-jy/da/dao"
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 	"zld-jy/models"
 	"zld-jy/service/users"
 	"zld-jy/utils"
@@ -74,8 +74,8 @@ func (ua *UsersAction) Register(users models.RegisterUser) error {
 
 	qur.Transaction(func(tx *dao.Query) error {
 		var empId, _ = qur.Employee.WithContext(context.Background()).Count()
-		var employee model.Employee
-		employee = model.Employee{
+		var employee domain.Employee
+		employee = domain.Employee{
 			ID:             empId + 1,
 			OrgID:          orgId,
 			EmpNo:          "001",
@@ -93,8 +93,8 @@ func (ua *UsersAction) Register(users models.RegisterUser) error {
 			panic(err)
 		}
 		var userId, _ = qur.SysUser.WithContext(context.Background()).Count()
-		var sysUsers model.SysUser
-		sysUsers = model.SysUser{ID: userId + 1,
+		var sysUsers domain.SysUser
+		sysUsers = domain.SysUser{ID: userId + 1,
 			EmpID:          empId,
 			UserName:       users.UserName,
 			UserEmail:      users.UserEmail,

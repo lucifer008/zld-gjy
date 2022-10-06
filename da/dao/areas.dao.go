@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newArea(db *gorm.DB) area {
 	_area := area{}
 
 	_area.areaDo.UseDB(db)
-	_area.areaDo.UseModel(&model.Area{})
+	_area.areaDo.UseModel(&domain.Area{})
 
 	tableName := _area.areaDo.TableName()
 	_area.ALL = field.NewAsterisk(tableName)
@@ -213,57 +213,57 @@ func (a areaDo) Unscoped() *areaDo {
 	return a.withDO(a.DO.Unscoped())
 }
 
-func (a areaDo) Create(values ...*model.Area) error {
+func (a areaDo) Create(values ...*domain.Area) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return a.DO.Create(values)
 }
 
-func (a areaDo) CreateInBatches(values []*model.Area, batchSize int) error {
+func (a areaDo) CreateInBatches(values []*domain.Area, batchSize int) error {
 	return a.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (a areaDo) Save(values ...*model.Area) error {
+func (a areaDo) Save(values ...*domain.Area) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return a.DO.Save(values)
 }
 
-func (a areaDo) First() (*model.Area, error) {
+func (a areaDo) First() (*domain.Area, error) {
 	if result, err := a.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Area), nil
+		return result.(*domain.Area), nil
 	}
 }
 
-func (a areaDo) Take() (*model.Area, error) {
+func (a areaDo) Take() (*domain.Area, error) {
 	if result, err := a.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Area), nil
+		return result.(*domain.Area), nil
 	}
 }
 
-func (a areaDo) Last() (*model.Area, error) {
+func (a areaDo) Last() (*domain.Area, error) {
 	if result, err := a.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Area), nil
+		return result.(*domain.Area), nil
 	}
 }
 
-func (a areaDo) Find() ([]*model.Area, error) {
+func (a areaDo) Find() ([]*domain.Area, error) {
 	result, err := a.DO.Find()
-	return result.([]*model.Area), err
+	return result.([]*domain.Area), err
 }
 
-func (a areaDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.Area, err error) {
-	buf := make([]*model.Area, 0, batchSize)
+func (a areaDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.Area, err error) {
+	buf := make([]*domain.Area, 0, batchSize)
 	err = a.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -271,7 +271,7 @@ func (a areaDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error)
 	return results, err
 }
 
-func (a areaDo) FindInBatches(result *[]*model.Area, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (a areaDo) FindInBatches(result *[]*domain.Area, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return a.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -297,23 +297,23 @@ func (a areaDo) Preload(fields ...field.RelationField) *areaDo {
 	return &a
 }
 
-func (a areaDo) FirstOrInit() (*model.Area, error) {
+func (a areaDo) FirstOrInit() (*domain.Area, error) {
 	if result, err := a.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Area), nil
+		return result.(*domain.Area), nil
 	}
 }
 
-func (a areaDo) FirstOrCreate() (*model.Area, error) {
+func (a areaDo) FirstOrCreate() (*domain.Area, error) {
 	if result, err := a.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Area), nil
+		return result.(*domain.Area), nil
 	}
 }
 
-func (a areaDo) FindByPage(offset int, limit int) (result []*model.Area, count int64, err error) {
+func (a areaDo) FindByPage(offset int, limit int) (result []*domain.Area, count int64, err error) {
 	result, err = a.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -342,7 +342,7 @@ func (a areaDo) Scan(result interface{}) (err error) {
 	return a.DO.Scan(result)
 }
 
-func (a areaDo) Delete(models ...*model.Area) (result gen.ResultInfo, err error) {
+func (a areaDo) Delete(models ...*domain.Area) (result gen.ResultInfo, err error) {
 	return a.DO.Delete(models)
 }
 

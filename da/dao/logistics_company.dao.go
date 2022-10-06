@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newLogisticsCompany(db *gorm.DB) logisticsCompany {
 	_logisticsCompany := logisticsCompany{}
 
 	_logisticsCompany.logisticsCompanyDo.UseDB(db)
-	_logisticsCompany.logisticsCompanyDo.UseModel(&model.LogisticsCompany{})
+	_logisticsCompany.logisticsCompanyDo.UseModel(&domain.LogisticsCompany{})
 
 	tableName := _logisticsCompany.logisticsCompanyDo.TableName()
 	_logisticsCompany.ALL = field.NewAsterisk(tableName)
@@ -219,57 +219,57 @@ func (l logisticsCompanyDo) Unscoped() *logisticsCompanyDo {
 	return l.withDO(l.DO.Unscoped())
 }
 
-func (l logisticsCompanyDo) Create(values ...*model.LogisticsCompany) error {
+func (l logisticsCompanyDo) Create(values ...*domain.LogisticsCompany) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return l.DO.Create(values)
 }
 
-func (l logisticsCompanyDo) CreateInBatches(values []*model.LogisticsCompany, batchSize int) error {
+func (l logisticsCompanyDo) CreateInBatches(values []*domain.LogisticsCompany, batchSize int) error {
 	return l.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (l logisticsCompanyDo) Save(values ...*model.LogisticsCompany) error {
+func (l logisticsCompanyDo) Save(values ...*domain.LogisticsCompany) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return l.DO.Save(values)
 }
 
-func (l logisticsCompanyDo) First() (*model.LogisticsCompany, error) {
+func (l logisticsCompanyDo) First() (*domain.LogisticsCompany, error) {
 	if result, err := l.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.LogisticsCompany), nil
+		return result.(*domain.LogisticsCompany), nil
 	}
 }
 
-func (l logisticsCompanyDo) Take() (*model.LogisticsCompany, error) {
+func (l logisticsCompanyDo) Take() (*domain.LogisticsCompany, error) {
 	if result, err := l.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.LogisticsCompany), nil
+		return result.(*domain.LogisticsCompany), nil
 	}
 }
 
-func (l logisticsCompanyDo) Last() (*model.LogisticsCompany, error) {
+func (l logisticsCompanyDo) Last() (*domain.LogisticsCompany, error) {
 	if result, err := l.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.LogisticsCompany), nil
+		return result.(*domain.LogisticsCompany), nil
 	}
 }
 
-func (l logisticsCompanyDo) Find() ([]*model.LogisticsCompany, error) {
+func (l logisticsCompanyDo) Find() ([]*domain.LogisticsCompany, error) {
 	result, err := l.DO.Find()
-	return result.([]*model.LogisticsCompany), err
+	return result.([]*domain.LogisticsCompany), err
 }
 
-func (l logisticsCompanyDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.LogisticsCompany, err error) {
-	buf := make([]*model.LogisticsCompany, 0, batchSize)
+func (l logisticsCompanyDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.LogisticsCompany, err error) {
+	buf := make([]*domain.LogisticsCompany, 0, batchSize)
 	err = l.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -277,7 +277,7 @@ func (l logisticsCompanyDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch
 	return results, err
 }
 
-func (l logisticsCompanyDo) FindInBatches(result *[]*model.LogisticsCompany, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (l logisticsCompanyDo) FindInBatches(result *[]*domain.LogisticsCompany, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return l.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -303,23 +303,23 @@ func (l logisticsCompanyDo) Preload(fields ...field.RelationField) *logisticsCom
 	return &l
 }
 
-func (l logisticsCompanyDo) FirstOrInit() (*model.LogisticsCompany, error) {
+func (l logisticsCompanyDo) FirstOrInit() (*domain.LogisticsCompany, error) {
 	if result, err := l.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.LogisticsCompany), nil
+		return result.(*domain.LogisticsCompany), nil
 	}
 }
 
-func (l logisticsCompanyDo) FirstOrCreate() (*model.LogisticsCompany, error) {
+func (l logisticsCompanyDo) FirstOrCreate() (*domain.LogisticsCompany, error) {
 	if result, err := l.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.LogisticsCompany), nil
+		return result.(*domain.LogisticsCompany), nil
 	}
 }
 
-func (l logisticsCompanyDo) FindByPage(offset int, limit int) (result []*model.LogisticsCompany, count int64, err error) {
+func (l logisticsCompanyDo) FindByPage(offset int, limit int) (result []*domain.LogisticsCompany, count int64, err error) {
 	result, err = l.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -348,7 +348,7 @@ func (l logisticsCompanyDo) Scan(result interface{}) (err error) {
 	return l.DO.Scan(result)
 }
 
-func (l logisticsCompanyDo) Delete(models ...*model.LogisticsCompany) (result gen.ResultInfo, err error) {
+func (l logisticsCompanyDo) Delete(models ...*domain.LogisticsCompany) (result gen.ResultInfo, err error) {
 	return l.DO.Delete(models)
 }
 

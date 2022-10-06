@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newOrdersFinance(db *gorm.DB) ordersFinance {
 	_ordersFinance := ordersFinance{}
 
 	_ordersFinance.ordersFinanceDo.UseDB(db)
-	_ordersFinance.ordersFinanceDo.UseModel(&model.OrdersFinance{})
+	_ordersFinance.ordersFinanceDo.UseModel(&domain.OrdersFinance{})
 
 	tableName := _ordersFinance.ordersFinanceDo.TableName()
 	_ordersFinance.ALL = field.NewAsterisk(tableName)
@@ -215,57 +215,57 @@ func (o ordersFinanceDo) Unscoped() *ordersFinanceDo {
 	return o.withDO(o.DO.Unscoped())
 }
 
-func (o ordersFinanceDo) Create(values ...*model.OrdersFinance) error {
+func (o ordersFinanceDo) Create(values ...*domain.OrdersFinance) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return o.DO.Create(values)
 }
 
-func (o ordersFinanceDo) CreateInBatches(values []*model.OrdersFinance, batchSize int) error {
+func (o ordersFinanceDo) CreateInBatches(values []*domain.OrdersFinance, batchSize int) error {
 	return o.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (o ordersFinanceDo) Save(values ...*model.OrdersFinance) error {
+func (o ordersFinanceDo) Save(values ...*domain.OrdersFinance) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return o.DO.Save(values)
 }
 
-func (o ordersFinanceDo) First() (*model.OrdersFinance, error) {
+func (o ordersFinanceDo) First() (*domain.OrdersFinance, error) {
 	if result, err := o.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.OrdersFinance), nil
+		return result.(*domain.OrdersFinance), nil
 	}
 }
 
-func (o ordersFinanceDo) Take() (*model.OrdersFinance, error) {
+func (o ordersFinanceDo) Take() (*domain.OrdersFinance, error) {
 	if result, err := o.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.OrdersFinance), nil
+		return result.(*domain.OrdersFinance), nil
 	}
 }
 
-func (o ordersFinanceDo) Last() (*model.OrdersFinance, error) {
+func (o ordersFinanceDo) Last() (*domain.OrdersFinance, error) {
 	if result, err := o.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.OrdersFinance), nil
+		return result.(*domain.OrdersFinance), nil
 	}
 }
 
-func (o ordersFinanceDo) Find() ([]*model.OrdersFinance, error) {
+func (o ordersFinanceDo) Find() ([]*domain.OrdersFinance, error) {
 	result, err := o.DO.Find()
-	return result.([]*model.OrdersFinance), err
+	return result.([]*domain.OrdersFinance), err
 }
 
-func (o ordersFinanceDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.OrdersFinance, err error) {
-	buf := make([]*model.OrdersFinance, 0, batchSize)
+func (o ordersFinanceDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.OrdersFinance, err error) {
+	buf := make([]*domain.OrdersFinance, 0, batchSize)
 	err = o.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -273,7 +273,7 @@ func (o ordersFinanceDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch in
 	return results, err
 }
 
-func (o ordersFinanceDo) FindInBatches(result *[]*model.OrdersFinance, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (o ordersFinanceDo) FindInBatches(result *[]*domain.OrdersFinance, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return o.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -299,23 +299,23 @@ func (o ordersFinanceDo) Preload(fields ...field.RelationField) *ordersFinanceDo
 	return &o
 }
 
-func (o ordersFinanceDo) FirstOrInit() (*model.OrdersFinance, error) {
+func (o ordersFinanceDo) FirstOrInit() (*domain.OrdersFinance, error) {
 	if result, err := o.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.OrdersFinance), nil
+		return result.(*domain.OrdersFinance), nil
 	}
 }
 
-func (o ordersFinanceDo) FirstOrCreate() (*model.OrdersFinance, error) {
+func (o ordersFinanceDo) FirstOrCreate() (*domain.OrdersFinance, error) {
 	if result, err := o.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.OrdersFinance), nil
+		return result.(*domain.OrdersFinance), nil
 	}
 }
 
-func (o ordersFinanceDo) FindByPage(offset int, limit int) (result []*model.OrdersFinance, count int64, err error) {
+func (o ordersFinanceDo) FindByPage(offset int, limit int) (result []*domain.OrdersFinance, count int64, err error) {
 	result, err = o.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -344,7 +344,7 @@ func (o ordersFinanceDo) Scan(result interface{}) (err error) {
 	return o.DO.Scan(result)
 }
 
-func (o ordersFinanceDo) Delete(models ...*model.OrdersFinance) (result gen.ResultInfo, err error) {
+func (o ordersFinanceDo) Delete(models ...*domain.OrdersFinance) (result gen.ResultInfo, err error) {
 	return o.DO.Delete(models)
 }
 

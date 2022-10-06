@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newSysPermissionItem(db *gorm.DB) sysPermissionItem {
 	_sysPermissionItem := sysPermissionItem{}
 
 	_sysPermissionItem.sysPermissionItemDo.UseDB(db)
-	_sysPermissionItem.sysPermissionItemDo.UseModel(&model.SysPermissionItem{})
+	_sysPermissionItem.sysPermissionItemDo.UseModel(&domain.SysPermissionItem{})
 
 	tableName := _sysPermissionItem.sysPermissionItemDo.TableName()
 	_sysPermissionItem.ALL = field.NewAsterisk(tableName)
@@ -203,57 +203,57 @@ func (s sysPermissionItemDo) Unscoped() *sysPermissionItemDo {
 	return s.withDO(s.DO.Unscoped())
 }
 
-func (s sysPermissionItemDo) Create(values ...*model.SysPermissionItem) error {
+func (s sysPermissionItemDo) Create(values ...*domain.SysPermissionItem) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Create(values)
 }
 
-func (s sysPermissionItemDo) CreateInBatches(values []*model.SysPermissionItem, batchSize int) error {
+func (s sysPermissionItemDo) CreateInBatches(values []*domain.SysPermissionItem, batchSize int) error {
 	return s.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (s sysPermissionItemDo) Save(values ...*model.SysPermissionItem) error {
+func (s sysPermissionItemDo) Save(values ...*domain.SysPermissionItem) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Save(values)
 }
 
-func (s sysPermissionItemDo) First() (*model.SysPermissionItem, error) {
+func (s sysPermissionItemDo) First() (*domain.SysPermissionItem, error) {
 	if result, err := s.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysPermissionItem), nil
+		return result.(*domain.SysPermissionItem), nil
 	}
 }
 
-func (s sysPermissionItemDo) Take() (*model.SysPermissionItem, error) {
+func (s sysPermissionItemDo) Take() (*domain.SysPermissionItem, error) {
 	if result, err := s.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysPermissionItem), nil
+		return result.(*domain.SysPermissionItem), nil
 	}
 }
 
-func (s sysPermissionItemDo) Last() (*model.SysPermissionItem, error) {
+func (s sysPermissionItemDo) Last() (*domain.SysPermissionItem, error) {
 	if result, err := s.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysPermissionItem), nil
+		return result.(*domain.SysPermissionItem), nil
 	}
 }
 
-func (s sysPermissionItemDo) Find() ([]*model.SysPermissionItem, error) {
+func (s sysPermissionItemDo) Find() ([]*domain.SysPermissionItem, error) {
 	result, err := s.DO.Find()
-	return result.([]*model.SysPermissionItem), err
+	return result.([]*domain.SysPermissionItem), err
 }
 
-func (s sysPermissionItemDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.SysPermissionItem, err error) {
-	buf := make([]*model.SysPermissionItem, 0, batchSize)
+func (s sysPermissionItemDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.SysPermissionItem, err error) {
+	buf := make([]*domain.SysPermissionItem, 0, batchSize)
 	err = s.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -261,7 +261,7 @@ func (s sysPermissionItemDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batc
 	return results, err
 }
 
-func (s sysPermissionItemDo) FindInBatches(result *[]*model.SysPermissionItem, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (s sysPermissionItemDo) FindInBatches(result *[]*domain.SysPermissionItem, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return s.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -287,23 +287,23 @@ func (s sysPermissionItemDo) Preload(fields ...field.RelationField) *sysPermissi
 	return &s
 }
 
-func (s sysPermissionItemDo) FirstOrInit() (*model.SysPermissionItem, error) {
+func (s sysPermissionItemDo) FirstOrInit() (*domain.SysPermissionItem, error) {
 	if result, err := s.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysPermissionItem), nil
+		return result.(*domain.SysPermissionItem), nil
 	}
 }
 
-func (s sysPermissionItemDo) FirstOrCreate() (*model.SysPermissionItem, error) {
+func (s sysPermissionItemDo) FirstOrCreate() (*domain.SysPermissionItem, error) {
 	if result, err := s.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysPermissionItem), nil
+		return result.(*domain.SysPermissionItem), nil
 	}
 }
 
-func (s sysPermissionItemDo) FindByPage(offset int, limit int) (result []*model.SysPermissionItem, count int64, err error) {
+func (s sysPermissionItemDo) FindByPage(offset int, limit int) (result []*domain.SysPermissionItem, count int64, err error) {
 	result, err = s.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -332,7 +332,7 @@ func (s sysPermissionItemDo) Scan(result interface{}) (err error) {
 	return s.DO.Scan(result)
 }
 
-func (s sysPermissionItemDo) Delete(models ...*model.SysPermissionItem) (result gen.ResultInfo, err error) {
+func (s sysPermissionItemDo) Delete(models ...*domain.SysPermissionItem) (result gen.ResultInfo, err error) {
 	return s.DO.Delete(models)
 }
 

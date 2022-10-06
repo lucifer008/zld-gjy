@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newSysUser(db *gorm.DB) sysUser {
 	_sysUser := sysUser{}
 
 	_sysUser.sysUserDo.UseDB(db)
-	_sysUser.sysUserDo.UseModel(&model.SysUser{})
+	_sysUser.sysUserDo.UseModel(&domain.SysUser{})
 
 	tableName := _sysUser.sysUserDo.TableName()
 	_sysUser.ALL = field.NewAsterisk(tableName)
@@ -237,57 +237,57 @@ func (s sysUserDo) Unscoped() *sysUserDo {
 	return s.withDO(s.DO.Unscoped())
 }
 
-func (s sysUserDo) Create(values ...*model.SysUser) error {
+func (s sysUserDo) Create(values ...*domain.SysUser) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Create(values)
 }
 
-func (s sysUserDo) CreateInBatches(values []*model.SysUser, batchSize int) error {
+func (s sysUserDo) CreateInBatches(values []*domain.SysUser, batchSize int) error {
 	return s.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (s sysUserDo) Save(values ...*model.SysUser) error {
+func (s sysUserDo) Save(values ...*domain.SysUser) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Save(values)
 }
 
-func (s sysUserDo) First() (*model.SysUser, error) {
+func (s sysUserDo) First() (*domain.SysUser, error) {
 	if result, err := s.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysUser), nil
+		return result.(*domain.SysUser), nil
 	}
 }
 
-func (s sysUserDo) Take() (*model.SysUser, error) {
+func (s sysUserDo) Take() (*domain.SysUser, error) {
 	if result, err := s.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysUser), nil
+		return result.(*domain.SysUser), nil
 	}
 }
 
-func (s sysUserDo) Last() (*model.SysUser, error) {
+func (s sysUserDo) Last() (*domain.SysUser, error) {
 	if result, err := s.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysUser), nil
+		return result.(*domain.SysUser), nil
 	}
 }
 
-func (s sysUserDo) Find() ([]*model.SysUser, error) {
+func (s sysUserDo) Find() ([]*domain.SysUser, error) {
 	result, err := s.DO.Find()
-	return result.([]*model.SysUser), err
+	return result.([]*domain.SysUser), err
 }
 
-func (s sysUserDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.SysUser, err error) {
-	buf := make([]*model.SysUser, 0, batchSize)
+func (s sysUserDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.SysUser, err error) {
+	buf := make([]*domain.SysUser, 0, batchSize)
 	err = s.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -295,7 +295,7 @@ func (s sysUserDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) err
 	return results, err
 }
 
-func (s sysUserDo) FindInBatches(result *[]*model.SysUser, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (s sysUserDo) FindInBatches(result *[]*domain.SysUser, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return s.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -321,23 +321,23 @@ func (s sysUserDo) Preload(fields ...field.RelationField) *sysUserDo {
 	return &s
 }
 
-func (s sysUserDo) FirstOrInit() (*model.SysUser, error) {
+func (s sysUserDo) FirstOrInit() (*domain.SysUser, error) {
 	if result, err := s.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysUser), nil
+		return result.(*domain.SysUser), nil
 	}
 }
 
-func (s sysUserDo) FirstOrCreate() (*model.SysUser, error) {
+func (s sysUserDo) FirstOrCreate() (*domain.SysUser, error) {
 	if result, err := s.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysUser), nil
+		return result.(*domain.SysUser), nil
 	}
 }
 
-func (s sysUserDo) FindByPage(offset int, limit int) (result []*model.SysUser, count int64, err error) {
+func (s sysUserDo) FindByPage(offset int, limit int) (result []*domain.SysUser, count int64, err error) {
 	result, err = s.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -366,7 +366,7 @@ func (s sysUserDo) Scan(result interface{}) (err error) {
 	return s.DO.Scan(result)
 }
 
-func (s sysUserDo) Delete(models ...*model.SysUser) (result gen.ResultInfo, err error) {
+func (s sysUserDo) Delete(models ...*domain.SysUser) (result gen.ResultInfo, err error) {
 	return s.DO.Delete(models)
 }
 

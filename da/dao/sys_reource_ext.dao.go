@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newSysReourceExt(db *gorm.DB) sysReourceExt {
 	_sysReourceExt := sysReourceExt{}
 
 	_sysReourceExt.sysReourceExtDo.UseDB(db)
-	_sysReourceExt.sysReourceExtDo.UseModel(&model.SysReourceExt{})
+	_sysReourceExt.sysReourceExtDo.UseModel(&domain.SysReourceExt{})
 
 	tableName := _sysReourceExt.sysReourceExtDo.TableName()
 	_sysReourceExt.ALL = field.NewAsterisk(tableName)
@@ -227,57 +227,57 @@ func (s sysReourceExtDo) Unscoped() *sysReourceExtDo {
 	return s.withDO(s.DO.Unscoped())
 }
 
-func (s sysReourceExtDo) Create(values ...*model.SysReourceExt) error {
+func (s sysReourceExtDo) Create(values ...*domain.SysReourceExt) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Create(values)
 }
 
-func (s sysReourceExtDo) CreateInBatches(values []*model.SysReourceExt, batchSize int) error {
+func (s sysReourceExtDo) CreateInBatches(values []*domain.SysReourceExt, batchSize int) error {
 	return s.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (s sysReourceExtDo) Save(values ...*model.SysReourceExt) error {
+func (s sysReourceExtDo) Save(values ...*domain.SysReourceExt) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Save(values)
 }
 
-func (s sysReourceExtDo) First() (*model.SysReourceExt, error) {
+func (s sysReourceExtDo) First() (*domain.SysReourceExt, error) {
 	if result, err := s.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysReourceExt), nil
+		return result.(*domain.SysReourceExt), nil
 	}
 }
 
-func (s sysReourceExtDo) Take() (*model.SysReourceExt, error) {
+func (s sysReourceExtDo) Take() (*domain.SysReourceExt, error) {
 	if result, err := s.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysReourceExt), nil
+		return result.(*domain.SysReourceExt), nil
 	}
 }
 
-func (s sysReourceExtDo) Last() (*model.SysReourceExt, error) {
+func (s sysReourceExtDo) Last() (*domain.SysReourceExt, error) {
 	if result, err := s.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysReourceExt), nil
+		return result.(*domain.SysReourceExt), nil
 	}
 }
 
-func (s sysReourceExtDo) Find() ([]*model.SysReourceExt, error) {
+func (s sysReourceExtDo) Find() ([]*domain.SysReourceExt, error) {
 	result, err := s.DO.Find()
-	return result.([]*model.SysReourceExt), err
+	return result.([]*domain.SysReourceExt), err
 }
 
-func (s sysReourceExtDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.SysReourceExt, err error) {
-	buf := make([]*model.SysReourceExt, 0, batchSize)
+func (s sysReourceExtDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.SysReourceExt, err error) {
+	buf := make([]*domain.SysReourceExt, 0, batchSize)
 	err = s.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -285,7 +285,7 @@ func (s sysReourceExtDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch in
 	return results, err
 }
 
-func (s sysReourceExtDo) FindInBatches(result *[]*model.SysReourceExt, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (s sysReourceExtDo) FindInBatches(result *[]*domain.SysReourceExt, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return s.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -311,23 +311,23 @@ func (s sysReourceExtDo) Preload(fields ...field.RelationField) *sysReourceExtDo
 	return &s
 }
 
-func (s sysReourceExtDo) FirstOrInit() (*model.SysReourceExt, error) {
+func (s sysReourceExtDo) FirstOrInit() (*domain.SysReourceExt, error) {
 	if result, err := s.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysReourceExt), nil
+		return result.(*domain.SysReourceExt), nil
 	}
 }
 
-func (s sysReourceExtDo) FirstOrCreate() (*model.SysReourceExt, error) {
+func (s sysReourceExtDo) FirstOrCreate() (*domain.SysReourceExt, error) {
 	if result, err := s.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysReourceExt), nil
+		return result.(*domain.SysReourceExt), nil
 	}
 }
 
-func (s sysReourceExtDo) FindByPage(offset int, limit int) (result []*model.SysReourceExt, count int64, err error) {
+func (s sysReourceExtDo) FindByPage(offset int, limit int) (result []*domain.SysReourceExt, count int64, err error) {
 	result, err = s.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -356,7 +356,7 @@ func (s sysReourceExtDo) Scan(result interface{}) (err error) {
 	return s.DO.Scan(result)
 }
 
-func (s sysReourceExtDo) Delete(models ...*model.SysReourceExt) (result gen.ResultInfo, err error) {
+func (s sysReourceExtDo) Delete(models ...*domain.SysReourceExt) (result gen.ResultInfo, err error) {
 	return s.DO.Delete(models)
 }
 

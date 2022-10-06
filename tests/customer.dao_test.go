@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 	"zld-jy/da/dao"
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func Test_InitCustomers(t *testing.T) {
@@ -18,7 +18,7 @@ func Test_InitCustomers(t *testing.T) {
 	var id = count + 1
 	for index := 1; index < rows; index++ {
 
-		qur.Customer.WithContext(ctx).Create(&model.Customer{
+		qur.Customer.WithContext(ctx).Create(&domain.Customer{
 			ID:              id,
 			CustomerName:    "张三公司" + strconv.FormatInt(id, 10),
 			CustomerAddress: "西安市未央区凤城十二路广场" + strconv.FormatInt(id, 10),

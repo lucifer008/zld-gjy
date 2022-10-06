@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newSysResource(db *gorm.DB) sysResource {
 	_sysResource := sysResource{}
 
 	_sysResource.sysResourceDo.UseDB(db)
-	_sysResource.sysResourceDo.UseModel(&model.SysResource{})
+	_sysResource.sysResourceDo.UseModel(&domain.SysResource{})
 
 	tableName := _sysResource.sysResourceDo.TableName()
 	_sysResource.ALL = field.NewAsterisk(tableName)
@@ -243,57 +243,57 @@ func (s sysResourceDo) Unscoped() *sysResourceDo {
 	return s.withDO(s.DO.Unscoped())
 }
 
-func (s sysResourceDo) Create(values ...*model.SysResource) error {
+func (s sysResourceDo) Create(values ...*domain.SysResource) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Create(values)
 }
 
-func (s sysResourceDo) CreateInBatches(values []*model.SysResource, batchSize int) error {
+func (s sysResourceDo) CreateInBatches(values []*domain.SysResource, batchSize int) error {
 	return s.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (s sysResourceDo) Save(values ...*model.SysResource) error {
+func (s sysResourceDo) Save(values ...*domain.SysResource) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Save(values)
 }
 
-func (s sysResourceDo) First() (*model.SysResource, error) {
+func (s sysResourceDo) First() (*domain.SysResource, error) {
 	if result, err := s.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysResource), nil
+		return result.(*domain.SysResource), nil
 	}
 }
 
-func (s sysResourceDo) Take() (*model.SysResource, error) {
+func (s sysResourceDo) Take() (*domain.SysResource, error) {
 	if result, err := s.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysResource), nil
+		return result.(*domain.SysResource), nil
 	}
 }
 
-func (s sysResourceDo) Last() (*model.SysResource, error) {
+func (s sysResourceDo) Last() (*domain.SysResource, error) {
 	if result, err := s.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysResource), nil
+		return result.(*domain.SysResource), nil
 	}
 }
 
-func (s sysResourceDo) Find() ([]*model.SysResource, error) {
+func (s sysResourceDo) Find() ([]*domain.SysResource, error) {
 	result, err := s.DO.Find()
-	return result.([]*model.SysResource), err
+	return result.([]*domain.SysResource), err
 }
 
-func (s sysResourceDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.SysResource, err error) {
-	buf := make([]*model.SysResource, 0, batchSize)
+func (s sysResourceDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.SysResource, err error) {
+	buf := make([]*domain.SysResource, 0, batchSize)
 	err = s.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -301,7 +301,7 @@ func (s sysResourceDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int)
 	return results, err
 }
 
-func (s sysResourceDo) FindInBatches(result *[]*model.SysResource, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (s sysResourceDo) FindInBatches(result *[]*domain.SysResource, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return s.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -327,23 +327,23 @@ func (s sysResourceDo) Preload(fields ...field.RelationField) *sysResourceDo {
 	return &s
 }
 
-func (s sysResourceDo) FirstOrInit() (*model.SysResource, error) {
+func (s sysResourceDo) FirstOrInit() (*domain.SysResource, error) {
 	if result, err := s.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysResource), nil
+		return result.(*domain.SysResource), nil
 	}
 }
 
-func (s sysResourceDo) FirstOrCreate() (*model.SysResource, error) {
+func (s sysResourceDo) FirstOrCreate() (*domain.SysResource, error) {
 	if result, err := s.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.SysResource), nil
+		return result.(*domain.SysResource), nil
 	}
 }
 
-func (s sysResourceDo) FindByPage(offset int, limit int) (result []*model.SysResource, count int64, err error) {
+func (s sysResourceDo) FindByPage(offset int, limit int) (result []*domain.SysResource, count int64, err error) {
 	result, err = s.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -372,7 +372,7 @@ func (s sysResourceDo) Scan(result interface{}) (err error) {
 	return s.DO.Scan(result)
 }
 
-func (s sysResourceDo) Delete(models ...*model.SysResource) (result gen.ResultInfo, err error) {
+func (s sysResourceDo) Delete(models ...*domain.SysResource) (result gen.ResultInfo, err error) {
 	return s.DO.Delete(models)
 }
 

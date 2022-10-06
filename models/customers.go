@@ -1,11 +1,11 @@
 package models
 
-import "zld-jy/da/model"
+import "zld-jy/da/domain"
 
 type Customers struct {
 	Base
 	CustomerName string `form:"customerName" json:"customerName" example:"客户名称"`
 }
 type CustomerModel struct {
-	model.Customer
+	domain.Customer
 }

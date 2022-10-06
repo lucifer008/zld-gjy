@@ -16,14 +16,14 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"zld-jy/da/model"
+	"zld-jy/da/domain"
 )
 
 func newStore(db *gorm.DB) store {
 	_store := store{}
 
 	_store.storeDo.UseDB(db)
-	_store.storeDo.UseModel(&model.Store{})
+	_store.storeDo.UseModel(&domain.Store{})
 
 	tableName := _store.storeDo.TableName()
 	_store.ALL = field.NewAsterisk(tableName)
@@ -197,57 +197,57 @@ func (s storeDo) Unscoped() *storeDo {
 	return s.withDO(s.DO.Unscoped())
 }
 
-func (s storeDo) Create(values ...*model.Store) error {
+func (s storeDo) Create(values ...*domain.Store) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Create(values)
 }
 
-func (s storeDo) CreateInBatches(values []*model.Store, batchSize int) error {
+func (s storeDo) CreateInBatches(values []*domain.Store, batchSize int) error {
 	return s.DO.CreateInBatches(values, batchSize)
 }
 
 // Save : !!! underlying implementation is different with GORM
 // The method is equivalent to executing the statement: db.Clauses(clause.OnConflict{UpdateAll: true}).Create(values)
-func (s storeDo) Save(values ...*model.Store) error {
+func (s storeDo) Save(values ...*domain.Store) error {
 	if len(values) == 0 {
 		return nil
 	}
 	return s.DO.Save(values)
 }
 
-func (s storeDo) First() (*model.Store, error) {
+func (s storeDo) First() (*domain.Store, error) {
 	if result, err := s.DO.First(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Store), nil
+		return result.(*domain.Store), nil
 	}
 }
 
-func (s storeDo) Take() (*model.Store, error) {
+func (s storeDo) Take() (*domain.Store, error) {
 	if result, err := s.DO.Take(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Store), nil
+		return result.(*domain.Store), nil
 	}
 }
 
-func (s storeDo) Last() (*model.Store, error) {
+func (s storeDo) Last() (*domain.Store, error) {
 	if result, err := s.DO.Last(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Store), nil
+		return result.(*domain.Store), nil
 	}
 }
 
-func (s storeDo) Find() ([]*model.Store, error) {
+func (s storeDo) Find() ([]*domain.Store, error) {
 	result, err := s.DO.Find()
-	return result.([]*model.Store), err
+	return result.([]*domain.Store), err
 }
 
-func (s storeDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*model.Store, err error) {
-	buf := make([]*model.Store, 0, batchSize)
+func (s storeDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error) (results []*domain.Store, err error) {
+	buf := make([]*domain.Store, 0, batchSize)
 	err = s.DO.FindInBatches(&buf, batchSize, func(tx gen.Dao, batch int) error {
 		defer func() { results = append(results, buf...) }()
 		return fc(tx, batch)
@@ -255,7 +255,7 @@ func (s storeDo) FindInBatch(batchSize int, fc func(tx gen.Dao, batch int) error
 	return results, err
 }
 
-func (s storeDo) FindInBatches(result *[]*model.Store, batchSize int, fc func(tx gen.Dao, batch int) error) error {
+func (s storeDo) FindInBatches(result *[]*domain.Store, batchSize int, fc func(tx gen.Dao, batch int) error) error {
 	return s.DO.FindInBatches(result, batchSize, fc)
 }
 
@@ -281,23 +281,23 @@ func (s storeDo) Preload(fields ...field.RelationField) *storeDo {
 	return &s
 }
 
-func (s storeDo) FirstOrInit() (*model.Store, error) {
+func (s storeDo) FirstOrInit() (*domain.Store, error) {
 	if result, err := s.DO.FirstOrInit(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Store), nil
+		return result.(*domain.Store), nil
 	}
 }
 
-func (s storeDo) FirstOrCreate() (*model.Store, error) {
+func (s storeDo) FirstOrCreate() (*domain.Store, error) {
 	if result, err := s.DO.FirstOrCreate(); err != nil {
 		return nil, err
 	} else {
-		return result.(*model.Store), nil
+		return result.(*domain.Store), nil
 	}
 }
 
-func (s storeDo) FindByPage(offset int, limit int) (result []*model.Store, count int64, err error) {
+func (s storeDo) FindByPage(offset int, limit int) (result []*domain.Store, count int64, err error) {
 	result, err = s.Offset(offset).Limit(limit).Find()
 	if err != nil {
 		return
@@ -326,7 +326,7 @@ func (s storeDo) Scan(result interface{}) (err error) {
 	return s.DO.Scan(result)
 }
 
-func (s storeDo) Delete(models ...*model.Store) (result gen.ResultInfo, err error) {
+func (s storeDo) Delete(models ...*domain.Store) (result gen.ResultInfo, err error) {
 	return s.DO.Delete(models)
 }
 
