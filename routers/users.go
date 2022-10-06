@@ -16,7 +16,10 @@ func addUserRouters(rg *gin.RouterGroup) {
 	rg.POST("/register", func(context *gin.Context) {
 		var registerUser models.RegisterUser
 		context.BindJSON(&registerUser)
-		action.UserActionInstance.Register(registerUser)
+		error := action.UserActionInstance.Register(registerUser)
+		if error != nil {
+			panic(error)
+		}
 		models.OK(context, nil)
 	})
 }

@@ -58,7 +58,16 @@ func (ua *UsersAction) Register(users models.RegisterUser) error {
 	if users.UserEmail == "" {
 		return errors.New("邮箱不能为空")
 	}
+	if users.Tel == "" {
+		return errors.New("手机号不能为空")
+	}
 	count, _ := qur.SysUser.WithContext(context.Background()).Or(qur.SysUser.UserName.Eq(users.UserName)).Or(qur.SysUser.UserEmail.Eq(users.UserEmail)).Count()
+	if count == 0 {
+		count, _ = qur.Employee.WithContext(context.Background()).Where(qur.Employee.EmpMobile.Eq(users.Tel)).Count()
+		if count > 0 {
+			return errors.New("手机号已存在")
+		}
+	}
 	if count > 0 {
 		return errors.New("用户名或者邮箱已存在")
 	}
@@ -68,7 +77,9 @@ func (ua *UsersAction) Register(users models.RegisterUser) error {
 		var employee model.Employee
 		employee = model.Employee{
 			ID:             empId + 1,
+			OrgID:          orgId,
 			EmpNo:          "001",
+			EmpMobile:      users.Tel,
 			EmpName:        users.UserName,
 			InsertDateTime: insertDatetime,
 			InsertUser:     insertUser,
@@ -77,7 +88,10 @@ func (ua *UsersAction) Register(users models.RegisterUser) error {
 			Deleted:        deleted,
 			Version:        version,
 		}
-		qur.Employee.WithContext(context.Background()).Create(&employee)
+		err := qur.Employee.WithContext(context.Background()).Create(&employee)
+		if err != nil {
+			panic(err)
+		}
 		var userId, _ = qur.SysUser.WithContext(context.Background()).Count()
 		var sysUsers model.SysUser
 		sysUsers = model.SysUser{ID: userId + 1,
@@ -95,7 +109,10 @@ func (ua *UsersAction) Register(users models.RegisterUser) error {
 			Version:        version,
 			CompayID:       companyId,
 		}
-		qur.SysUser.WithContext(context.Background()).Create(&sysUsers)
+		err = qur.SysUser.WithContext(context.Background()).Create(&sysUsers)
+		if err != nil {
+			panic(err)
+		}
 		return nil
 	})
 	return nil

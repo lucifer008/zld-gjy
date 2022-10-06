@@ -13,6 +13,7 @@ var updateUser int64 = 1
 var deleted = "0"
 var version int32 = 1
 var companyId int64 = 1
+var orgId int64 = 1
 
 // Query 基类方法
 func (action BaseAction) Query(params interface{}) (total int64, data interface{}) {

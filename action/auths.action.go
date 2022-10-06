@@ -99,7 +99,7 @@ func GlobalExceptonHandler(c *gin.Context) {
 			debug.PrintStack()
 			c.JSON(http.StatusOK, models.Result{
 				Code:    1001,
-				Message: "地址错误或者参数错误!",
+				Message: "内部错误:" + errorToString(r),
 			})
 			c.Abort()
 		}
