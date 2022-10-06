@@ -5,12 +5,12 @@ import (
 	"strings"
 	"testing"
 	"time"
+	"zld-jy/da/dao"
 	"zld-jy/da/model"
-	"zld-jy/da/query"
 )
 
 func Test_InitCustomers(t *testing.T) {
-	qur := query.Use(DB)
+	qur := dao.Use(DB)
 	//var areaList, _ = qur.Area.WithContext(ctx).Limit(10).Find()
 	//log.Println(areaList)
 	count, _ := qur.Customer.WithContext(ctx).Count()

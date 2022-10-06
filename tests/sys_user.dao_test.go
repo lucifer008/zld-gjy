@@ -6,12 +6,12 @@ import (
 	"log"
 	"testing"
 	"time"
+	"zld-jy/da/dao"
 	"zld-jy/da/model"
-	"zld-jy/da/query"
 )
 
 func Test_InitUsers(t *testing.T) {
-	dao := query.Use(DB)
+	dao := dao.Use(DB)
 	userId, _ := dao.SysUser.WithContext(ctx).Count()
 	userId = userId + 1
 	emp, _ := dao.Employee.WithContext(ctx).First()
@@ -29,7 +29,7 @@ func MD5(v string) string {
 	return hex.EncodeToString(m.Sum(nil))
 }
 func Test_LoginUser(t *testing.T) {
-	sysUsers := query.Use(DB).SysUser
+	sysUsers := dao.Use(DB).SysUser
 	var username = "zhangsan"
 	password := MD5("wxllx@124343.com")
 	count, err := sysUsers.WithContext(ctx).Where(sysUsers.UserName.Eq(username), sysUsers.UserPassword.Eq(password)).Count()
@@ -44,7 +44,7 @@ func Test_LoginUser(t *testing.T) {
 	//fmt.Println(count2)
 }
 func Test_Get_User_Infos(t *testing.T) {
-	qur := query.Use(DB)
+	qur := dao.Use(DB)
 	var users = qur.SysUser
 	var employee = qur.Employee
 	var username = "zhangsan1"

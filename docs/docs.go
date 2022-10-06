@@ -47,7 +47,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/customers/query": {
+        "/customers/dao": {
             "get": {
                 "description": "查询客户信息",
                 "consumes": [
@@ -65,18 +65,18 @@ const docTemplate = `{
                         "type": "integer",
                         "example": 1,
                         "name": "currentIndex",
-                        "in": "query"
+                        "in": "dao"
                     },
                     {
                         "type": "string",
                         "name": "customerName",
-                        "in": "query"
+                        "in": "dao"
                     },
                     {
                         "type": "integer",
                         "example": 10,
                         "name": "pageSize",
-                        "in": "query"
+                        "in": "dao"
                     }
                 ],
                 "responses": {
@@ -105,7 +105,7 @@ const docTemplate = `{
                         "default": "1",
                         "description": "登录参数",
                         "name": "userId",
-                        "in": "query",
+                        "in": "dao",
                         "required": true
                     }
                 ],

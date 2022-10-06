@@ -3,13 +3,13 @@ package tests
 import (
 	"testing"
 	"time"
+	"zld-jy/da/dao"
 	"zld-jy/da/model"
-	"zld-jy/da/query"
 )
 
 //init employee
 func Test_InitEmployee(t *testing.T) {
-	dao := query.Use(DB)
+	dao := dao.Use(DB)
 	empId, _ := dao.Employee.WithContext(ctx).Count()
 	empId = empId + 1
 	org, _ := dao.Organization.WithContext(ctx).First()

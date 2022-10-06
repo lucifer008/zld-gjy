@@ -22,7 +22,7 @@ var _ = os.Setenv("GORM_DIALECT", "mysql")
 var generateCase = map[string]func(dir string) *gen.Generator{
 	generateDirPrefix + "dal_1": func(dir string) *gen.Generator {
 		g := gen.NewGenerator(gen.Config{
-			OutPath: dir + "/query",
+			OutPath: dir + "/dao",
 			Mode:    gen.WithDefaultQuery,
 		})
 		g.UseDB(DB)
@@ -31,7 +31,7 @@ var generateCase = map[string]func(dir string) *gen.Generator{
 	},
 	generateDirPrefix + "dal_2": func(dir string) *gen.Generator {
 		g := gen.NewGenerator(gen.Config{
-			OutPath: dir + "/query",
+			OutPath: dir + "/dao",
 			Mode:    gen.WithDefaultQuery,
 
 			WithUnitTest: true,
@@ -61,7 +61,7 @@ func TestGenerate(t *testing.T) {
 }
 
 func matchGeneratedFile(dir string) error {
-	_ = os.Remove(dir + "/query/gen_test.db")
+	_ = os.Remove(dir + "/dao/gen_test.db")
 
 	ctx, cancel := context.WithTimeout(context.TODO(), 10*time.Second)
 	defer cancel()
@@ -82,7 +82,7 @@ func TestGenerate_expect(t *testing.T) {
 		t.SkipNow()
 	}
 	g := gen.NewGenerator(gen.Config{
-		OutPath: expectDirPrefix + "dal_test" + "/query",
+		OutPath: expectDirPrefix + "dal_test" + "/dao",
 		Mode:    gen.WithDefaultQuery,
 	})
 	g.UseDB(DB)

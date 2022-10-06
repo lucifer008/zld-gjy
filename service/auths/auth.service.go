@@ -7,7 +7,7 @@ import (
 	"time"
 	"zld-jy/config"
 	"zld-jy/da/base"
-	"zld-jy/da/query"
+	"zld-jy/da/dao"
 	"zld-jy/middleware"
 	"zld-jy/models"
 	"zld-jy/utils"
@@ -26,7 +26,7 @@ type AuthServiceImpl struct {
 }
 
 func (impl *AuthServiceImpl) Auths(u models.LoginUsers) models.AuthsModel {
-	qur := query.Use(base.DB)
+	qur := dao.Use(base.DB)
 	userDao := qur.SysUser
 	employeeDao := qur.Employee
 	var username = u.Username

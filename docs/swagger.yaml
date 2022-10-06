@@ -88,14 +88,14 @@ paths:
       description: 查询客户信息
       parameters:
       - example: 1
-        in: query
+        in: dao
         name: currentIndex
         type: integer
-      - in: query
+      - in: dao
         name: customerName
         type: string
       - example: 10
-        in: query
+        in: dao
         name: pageSize
         type: integer
       produces:
@@ -114,7 +114,7 @@ paths:
       parameters:
       - default: "1"
         description: 登录参数
-        in: query
+        in: dao
         name: userId
         required: true
         type: string

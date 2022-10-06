@@ -31,7 +31,7 @@ func TestAdvanceQuery(t *testing.T) {
 		id       int64
 		UserName string
 	}
-	//uy := query.Use(DB)
+	//uy := dao.Use(DB)
 	var customerUser = &CustomerUser{}
 	DB.Model(&model.SysUser{}).Find(customerUser)
 	fmt.Println(customerUser)

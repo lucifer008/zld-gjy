@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"testing"
 	"time"
+	"zld-jy/da/dao"
 	"zld-jy/da/model"
-	"zld-jy/da/query"
 )
 
 //测试create
 func Test_newCompany(t *testing.T) {
 	useOnce.Do(CRUDInit)
 
-	u := query.Company
+	u := dao.Company
 
 	id, _ := u.WithContext(ctx).Count()
 	err := u.WithContext(ctx).Create(&model.Company{
@@ -32,8 +32,8 @@ func Test_newCompany(t *testing.T) {
 
 //测试事务
 func Test_Trans(t *testing.T) {
-	qur := query.Use(DB)
-	err := qur.Transaction(func(tx *query.Query) error {
+	qur := dao.Use(DB)
+	err := qur.Transaction(func(tx *dao.Query) error {
 		id, _ := tx.Company.WithContext(ctx).Count()
 		ids := id + 1
 		fmt.Println("插入Id", ids)
@@ -62,7 +62,7 @@ func Test_Trans(t *testing.T) {
 
 //测试list
 func Test_Company_Query(t *testing.T) {
-	qur := query.Use(DB)
+	qur := dao.Use(DB)
 	//var comList []*model.Company
 	comList, err := qur.Company.WithContext(ctx).Find()
 	if err != nil {
@@ -76,7 +76,7 @@ func Test_Company_Query(t *testing.T) {
 
 //分页
 func Test_Company_Query_Pages(t *testing.T) {
-	qur := query.Use(DB)
+	qur := dao.Use(DB)
 	result, count, err := qur.Company.WithContext(ctx).FindByPage(1, 2)
 	if err != nil {
 		fmt.Errorf("错误信息>>>%w", err)

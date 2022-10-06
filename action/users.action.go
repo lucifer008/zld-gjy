@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"zld-jy/da/base"
+	"zld-jy/da/dao"
 	"zld-jy/da/model"
-	"zld-jy/da/query"
 	"zld-jy/models"
 	"zld-jy/service/users"
 	"zld-jy/utils"
@@ -26,7 +26,7 @@ type UsersAction struct {
 // @Tags 用户
 // @Schemes
 // @Description 根据用户ID获取用户信息
-// @Param userId query  string true "登录参数" default(1)
+// @Param userId dao  string true "登录参数" default(1)
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.UsersInfo
@@ -48,7 +48,7 @@ func (uh *UsersAction) GetUserInfo(userId string) models.UsersInfo {
 // @Success 200 {object} models.Result
 // @Router /users/register [post]
 func (ua *UsersAction) Register(users models.RegisterUser) error {
-	qur := query.Use(base.DB)
+	qur := dao.Use(base.DB)
 	if users.UserName == "" {
 		return errors.New("用户名不能为空")
 	}
@@ -72,7 +72,7 @@ func (ua *UsersAction) Register(users models.RegisterUser) error {
 		return errors.New("用户名或者邮箱已存在")
 	}
 
-	qur.Transaction(func(tx *query.Query) error {
+	qur.Transaction(func(tx *dao.Query) error {
 		var empId, _ = qur.Employee.WithContext(context.Background()).Count()
 		var employee model.Employee
 		employee = model.Employee{

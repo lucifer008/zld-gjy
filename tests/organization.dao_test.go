@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"testing"
 	"time"
+	"zld-jy/da/dao"
 	"zld-jy/da/model"
-	"zld-jy/da/query"
 )
 
 func Test_Init_Org(t *testing.T) {
-	qur := query.Use(DB)
+	qur := dao.Use(DB)
 	com, error := qur.Company.WithContext(ctx).First()
 	if error != nil {
 		fmt.Errorf("%w", error)

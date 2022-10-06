@@ -4,8 +4,8 @@ import (
 	"context"
 	"strconv"
 	"zld-jy/da/base"
+	"zld-jy/da/dao"
 	"zld-jy/da/model"
-	"zld-jy/da/query"
 )
 
 type UsersService interface {
@@ -25,7 +25,7 @@ func (u *UserServiceImpl) GetUsers(userId string) (us *model.SysUser, em *model.
 	if userId == "" {
 		panic("用户Id不能为空!")
 	}
-	qur := query.Use(base.DB)
+	qur := dao.Use(base.DB)
 	sysUserQuery := qur.SysUser
 	employeeQuery := qur.Employee
 	id, _ := strconv.ParseInt(userId, 10, 64)
