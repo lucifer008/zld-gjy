@@ -10,7 +10,10 @@ func addCustomerRouters(rg *gin.RouterGroup) {
 	rg.GET("/query", func(context *gin.Context) {
 		var customer models.Customers
 		context.ShouldBindQuery(&customer)
-		total, data := action.CustomerActions.Query(customer)
+		total, data, err := action.CustomerActions.Query(customer)
+		if err != nil {
+			panic(err)
+		}
 		var result = models.ToResultPages(customer.Pages, total, data)
 		models.OK(context, result)
 	})

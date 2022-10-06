@@ -1,7 +1,11 @@
 package action
 
 import (
+	"context"
+	"zld-jy/da/base"
+	"zld-jy/da/query"
 	"zld-jy/models"
+	"zld-jy/utils"
 )
 
 var CustomerActions CustomerAction
@@ -24,8 +28,20 @@ type CustomerAction struct {
 // @Produce json
 // @Success 200
 // @Router /customers/query [get]
-func (customerAction CustomerAction) Query(customers models.Customers) (total int64, data []models.Customers) {
-	total = 10
-
-	return total, data
+func (customerAction CustomerAction) Query(customers models.Customers) (total int64, data []models.CustomerModel, err error) {
+	qur := query.Use(base.DB)
+	if customers.CustomerName != "" {
+		result, total, err := qur.Customer.WithContext(context.Background()).Where(qur.Customer.CustomerName.Like(customers.CustomerName)).FindByPage(customers.CurrentIndex, customers.PageSize)
+		if err != nil {
+			panic(err)
+		}
+		utils.SimpleCopyProperties(&data, result)
+		return total, data, err
+	}
+	result, total, err := qur.Customer.WithContext(context.Background()).FindByPage(customers.CurrentIndex, customers.PageSize)
+	if err != nil {
+		panic(err)
+	}
+	utils.SimpleCopyProperties(&data, result)
+	return total, data, err
 }
