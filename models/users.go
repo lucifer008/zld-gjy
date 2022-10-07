@@ -25,4 +25,5 @@ type CurrentUsers struct {
 	UserType  int32  //用户类型
 	EmpNo     string //雇员编号
 	EmpName   string //雇员名称
+	CompanyId string //公司Id
 }
