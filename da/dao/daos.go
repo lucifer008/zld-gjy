@@ -53,6 +53,7 @@ func Use(db *gorm.DB) *Query {
 		SysUserGroupRole:       newSysUserGroupRole(db),
 		SysUserRole:            newSysUserRole(db),
 		Vehicle:                newVehicle(db),
+		IDGENERATOR:            newIDGENERATOR(db),
 	}
 }
 
@@ -87,6 +88,7 @@ type Query struct {
 	SysUserGroupRole       sysUserGroupRole
 	SysUserRole            sysUserRole
 	Vehicle                vehicle
+	IDGENERATOR            iDGENERATOR
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -104,6 +106,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		LogisticsCompany:       q.LogisticsCompany.clone(db),
 		Order:                  q.Order.clone(db),
 		OrderStatus:            q.OrderStatus.clone(db),
+		IDGENERATOR:            q.IDGENERATOR.clone(db),
 		OrdersFee:              q.OrdersFee.clone(db),
 		OrdersFinance:          q.OrdersFinance.clone(db),
 		OrdersGood:             q.OrdersGood.clone(db),
@@ -166,6 +169,7 @@ type queryCtx struct {
 	SysUserGroupRole       *sysUserGroupRoleDo
 	SysUserRole            *sysUserRoleDo
 	Vehicle                *vehicleDo
+	IDGENERATOR            *iDGENERATORDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -198,6 +202,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		SysUserGroupRole:       q.SysUserGroupRole.WithContext(ctx),
 		SysUserRole:            q.SysUserRole.WithContext(ctx),
 		Vehicle:                q.Vehicle.WithContext(ctx),
+		IDGENERATOR:            q.IDGENERATOR.WithContext(ctx),
 	}
 }
 
