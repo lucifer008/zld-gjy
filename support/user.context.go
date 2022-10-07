@@ -5,7 +5,7 @@ import (
 	"zld-jy/models"
 )
 
-var currentContenxt = routine.NewLocalStorage()
+var currentContext = routine.NewLocalStorage()
 var UserContextInstance UserContext
 
 func init() {
@@ -16,8 +16,8 @@ type UserContext struct {
 }
 
 func (uc UserContext) SetCurrentUser(user models.CurrentUsers) {
-	currentContenxt.Set(user)
+	currentContext.Set(user)
 }
 func (uc UserContext) GetCurrentUser() models.CurrentUsers {
-	return currentContenxt.Get().(models.CurrentUsers)
+	return currentContext.Get().(models.CurrentUsers)
 }

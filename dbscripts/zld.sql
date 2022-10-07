@@ -566,3 +566,24 @@ CREATE TABLE `sys_User_Group_Roles`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+drop table if exists ID_GENERATOR;
+
+/*==============================================================*/
+/* Table: ID_GENERATOR                                          */
+/*==============================================================*/
+create table ID_GENERATOR
+(
+    id                   bigint not null comment 'id生成器id',
+    flag_no              varchar(50) not null comment '标示符',
+    begin_value          bigint not null comment '开始值',
+    current_value        bigint not null comment '目前值',
+    end_value            bigint not null comment '结束值',
+    memo                 national varchar(200) not null comment '备注',
+    company_id           bigint comment '分公司Id',
+    primary key (id)
+);
+
+alter table ID_GENERATOR comment '号码段的分类
+@needMeta=false';
+
