@@ -8,4 +8,5 @@ type Customers struct {
 }
 type CustomerModel struct {
 	domain.Customer
+	Tag int
 }

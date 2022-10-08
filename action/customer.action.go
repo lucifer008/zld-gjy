@@ -4,8 +4,8 @@ import (
 	"context"
 	"zld-jy/da/base"
 	"zld-jy/da/dao"
+	"zld-jy/da/domain"
 	"zld-jy/models"
-	"zld-jy/utils"
 )
 
 var CustomerActions CustomerAction
@@ -35,13 +35,30 @@ func (customerAction CustomerAction) Query(customers models.Customers) (total in
 		if err != nil {
 			panic(err)
 		}
-		utils.SimpleCopyProperties(&data, result)
+
+		//for key, v := range result {
+		//	var res models.CustomerModel
+		//	utils.SimpleCopyProperties(&v, res)
+		//	data[key] = res
+		//}
+		for _, v := range result {
+			var res models.CustomerModel
+			res = models.CustomerModel{Customer: domain.Customer{ID: v.ID, CustomerName: v.CustomerName, CustomerAddress: v.CustomerAddress,
+				ContactTel: v.ContactTel, ContactMan: v.ContactMan, EnterTel: v.EnterTel, ProvinceCode: v.ProvinceCode, CityCode: v.CityCode, AreaCode: v.AreaCode}}
+			data = append(data, res)
+		}
 		return total, data, err
 	}
 	result, total, err := qur.Customer.WithContext(context.Background()).FindByPage(customers.CurrentIndex, customers.PageSize)
 	if err != nil {
 		panic(err)
 	}
-	utils.SimpleCopyProperties(&data, result)
+	for _, v := range result {
+		var res models.CustomerModel
+		res = models.CustomerModel{Customer: domain.Customer{ID: v.ID, CustomerName: v.CustomerName, CustomerAddress: v.CustomerAddress,
+			ContactTel: v.ContactTel, ContactMan: v.ContactMan, EnterTel: v.EnterTel, ProvinceCode: v.ProvinceCode, CityCode: v.CityCode, AreaCode: v.AreaCode}}
+		data = append(data, res)
+	}
+	//utils.SimpleCopyProperties(&data, result)
 	return total, data, err
 }
