@@ -14,6 +14,7 @@ func init() {
 	CustomerActions = CustomerAction{}
 }
 
+// CustomerAction 客户相关
 type CustomerAction struct {
 	BaseAction
 }

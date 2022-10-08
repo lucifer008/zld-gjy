@@ -8,7 +8,7 @@ import (
 	"zld-jy/models"
 )
 
-//订单相关
+// OrdersAction 订单相关
 type OrdersAction struct {
 	BaseAction
 }
@@ -45,4 +45,18 @@ func (oa OrdersAction) Query(orders models.Orders) (total int64, data []models.O
 		data = append(data, res)
 	}
 	return total, data, err
+}
+
+// NewOrders
+//@Summary 新增订单/编辑订单
+// @Tags 订单
+// @Schemes
+// @Description 新增订单/编辑订单
+// @Param user body  models.NewOrderModel true "新增订单/编辑订单"
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.Result
+// @Router /orders/newOrders [post]
+func (oa OrdersAction) NewOrders(order models.NewOrderModel) {
+
 }

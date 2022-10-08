@@ -17,4 +17,10 @@ func addOrderRouters(rg *gin.RouterGroup) {
 		var result = models.ToResultPages(orders.Pages, total, data)
 		models.OK(context, result)
 	})
+	rg.POST("/newOrders", func(context *gin.Context) {
+		var order models.NewOrderModel
+		context.BindJSON(&order)
+		action.OrderActionInstance.NewOrders(order)
+		models.OK(context, nil)
+	})
 }

@@ -19,6 +19,7 @@ func init() {
 	UserActionInstance = &UsersAction{}
 }
 
+//UsersAction 用户相关
 type UsersAction struct {
 	BaseAction
 }

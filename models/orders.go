@@ -8,3 +8,7 @@ type Orders struct {
 type OrdersModel struct {
 	domain.Order
 }
+type NewOrderModel struct {
+	Orders      domain.Order
+	OrdersGoods []domain.OrdersGood
+}
