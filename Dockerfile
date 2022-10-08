@@ -39,4 +39,4 @@ ENV GIN_MODE=release
 
 EXPOSE 5000
 
-CMD ["/app/main"]
+CMD ["/app/main", "con","./app.yml"]

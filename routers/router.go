@@ -20,7 +20,7 @@ func Run() {
 	bindRoutes()
 	bindSwagger()
 	router.Run(config.Config.Server.Port)
-
+	log.Println(">>>>>>>start service success!")
 }
 func bindRoutes() {
 	user := router.Group("/api/users")
