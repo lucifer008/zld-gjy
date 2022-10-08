@@ -1,0 +1,425 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/auths/login": {
+            "post": {
+                "description": "登录",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "认证"
+                ],
+                "summary": "登录接口",
+                "parameters": [
+                    {
+                        "description": "登录参数",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginUsers"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/customers/query": {
+            "get": {
+                "description": "查询客户信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "客户"
+                ],
+                "summary": "查询客户信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "name": "currentIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "example": "客户名称",
+                        "name": "customerName",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 10,
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/orders/newOrders": {
+            "post": {
+                "description": "新增订单/编辑订单",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "订单"
+                ],
+                "summary": "新增订单/编辑订单",
+                "parameters": [
+                    {
+                        "description": "新增订单/编辑订单",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.NewOrderModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/query": {
+            "get": {
+                "description": "查询订单信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "订单"
+                ],
+                "summary": "查询订单信息",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "example": 1,
+                        "name": "currentIndex",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 10,
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/getUsers": {
+            "get": {
+                "description": "根据用户ID获取用户信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "获取用户信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "1",
+                        "description": "登录参数",
+                        "name": "userId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UsersInfo"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/register": {
+            "post": {
+                "description": "注册用户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "注册用户",
+                "parameters": [
+                    {
+                        "description": "注册用户信息",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RegisterUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Result"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.Order": {
+            "type": "object",
+            "properties": {
+                "Log_Id": {
+                    "description": "物流公司Id",
+                    "type": "integer"
+                },
+                "arrive_address": {
+                    "description": "到达地",
+                    "type": "string"
+                },
+                "arrive_area_code": {
+                    "description": "到达地区Code",
+                    "type": "string"
+                },
+                "arrive_city_code": {
+                    "description": "到达城市Code",
+                    "type": "string"
+                },
+                "arrive_date": {
+                    "description": "到达时间",
+                    "type": "string"
+                },
+                "arrive_province_code": {
+                    "description": "到达省份Code",
+                    "type": "string"
+                },
+                "deliver_address": {
+                    "description": "出发地",
+                    "type": "string"
+                },
+                "deliver_area_code": {
+                    "description": "发货地区Code",
+                    "type": "string"
+                },
+                "deliver_city_code": {
+                    "description": "发货城市Code",
+                    "type": "string"
+                },
+                "deliver_province_code": {
+                    "description": "发货省code",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "订单Id",
+                    "type": "integer"
+                },
+                "order_no": {
+                    "description": "订单号",
+                    "type": "string"
+                },
+                "out_order_no": {
+                    "description": "外部订单号",
+                    "type": "string"
+                },
+                "pricing_method": {
+                    "description": "计价方式(0: 趟 1 吨 2 方)",
+                    "type": "integer"
+                },
+                "project_name": {
+                    "description": "项目名称",
+                    "type": "string"
+                },
+                "receipt_customer": {
+                    "description": "收货客户",
+                    "type": "string"
+                },
+                "receipt_customer_tel": {
+                    "description": "收货客户电话",
+                    "type": "string"
+                },
+                "return_bill_attachment": {
+                    "description": "回单附件",
+                    "type": "string"
+                },
+                "shipment_date": {
+                    "description": "托运时间",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "订单状态(0:草稿 1:已下单 2:已接单 3: 已装货 4: 已签收)",
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.OrdersGood": {
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "description": "货物Id",
+                    "type": "integer"
+                },
+                "Ord_id": {
+                    "description": "订单Id",
+                    "type": "integer"
+                },
+                "goods_name": {
+                    "description": "货物名称",
+                    "type": "string"
+                },
+                "size": {
+                    "description": "尺寸",
+                    "type": "string"
+                },
+                "volume": {
+                    "description": "体积",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "重量",
+                    "type": "string"
+                }
+            }
+        },
+        "models.LoginUsers": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "description": "密码",
+                    "type": "string",
+                    "example": "wxllx@124343.com"
+                },
+                "username": {
+                    "description": "用户名",
+                    "type": "string",
+                    "example": "zhangsan"
+                }
+            }
+        },
+        "models.NewOrderModel": {
+            "type": "object",
+            "properties": {
+                "orders": {
+                    "$ref": "#/definitions/domain.Order"
+                },
+                "ordersGoods": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/domain.OrdersGood"
+                    }
+                }
+            }
+        },
+        "models.RegisterUser": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "description": "密码",
+                    "type": "string",
+                    "example": "zxl222@asas"
+                },
+                "tel": {
+                    "description": "手机号",
+                    "type": "string",
+                    "example": "18011329010"
+                },
+                "userEmail": {
+                    "description": "用户邮箱",
+                    "type": "string",
+                    "example": "zhangsan@163.com"
+                },
+                "username": {
+                    "description": "用户名称",
+                    "type": "string",
+                    "example": "zhangsan"
+                }
+            }
+        },
+        "models.Result": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UsersInfo": {
+            "type": "object",
+            "properties": {
+                "empName": {
+                    "description": "雇员名称",
+                    "type": "string"
+                },
+                "empNo": {
+                    "description": "雇员编号",
+                    "type": "string"
+                },
+                "userEmail": {
+                    "description": "用户邮箱",
+                    "type": "string"
+                },
+                "userId": {
+                    "description": "用户Id",
+                    "type": "integer"
+                },
+                "userName": {
+                    "description": "用户名称",
+                    "type": "string"
+                },
+                "userType": {
+                    "description": "用户类型",
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

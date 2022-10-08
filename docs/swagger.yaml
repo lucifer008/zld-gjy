@@ -1,0 +1,291 @@
+definitions:
+  domain.Order:
+    properties:
+      Log_Id:
+        description: 物流公司Id
+        type: integer
+      arrive_address:
+        description: 到达地
+        type: string
+      arrive_area_code:
+        description: 到达地区Code
+        type: string
+      arrive_city_code:
+        description: 到达城市Code
+        type: string
+      arrive_date:
+        description: 到达时间
+        type: string
+      arrive_province_code:
+        description: 到达省份Code
+        type: string
+      deliver_address:
+        description: 出发地
+        type: string
+      deliver_area_code:
+        description: 发货地区Code
+        type: string
+      deliver_city_code:
+        description: 发货城市Code
+        type: string
+      deliver_province_code:
+        description: 发货省code
+        type: string
+      id:
+        description: 订单Id
+        type: integer
+      order_no:
+        description: 订单号
+        type: string
+      out_order_no:
+        description: 外部订单号
+        type: string
+      pricing_method:
+        description: '计价方式(0: 趟 1 吨 2 方)'
+        type: integer
+      project_name:
+        description: 项目名称
+        type: string
+      receipt_customer:
+        description: 收货客户
+        type: string
+      receipt_customer_tel:
+        description: 收货客户电话
+        type: string
+      return_bill_attachment:
+        description: 回单附件
+        type: string
+      shipment_date:
+        description: 托运时间
+        type: string
+      status:
+        description: '订单状态(0:草稿 1:已下单 2:已接单 3: 已装货 4: 已签收)'
+        type: integer
+    type: object
+  domain.OrdersGood:
+    properties:
+      Id:
+        description: 货物Id
+        type: integer
+      Ord_id:
+        description: 订单Id
+        type: integer
+      goods_name:
+        description: 货物名称
+        type: string
+      size:
+        description: 尺寸
+        type: string
+      volume:
+        description: 体积
+        type: string
+      weight:
+        description: 重量
+        type: string
+    type: object
+  models.LoginUsers:
+    properties:
+      password:
+        description: 密码
+        example: wxllx@124343.com
+        type: string
+      username:
+        description: 用户名
+        example: zhangsan
+        type: string
+    type: object
+  models.NewOrderModel:
+    properties:
+      orders:
+        $ref: '#/definitions/domain.Order'
+      ordersGoods:
+        items:
+          $ref: '#/definitions/domain.OrdersGood'
+        type: array
+    type: object
+  models.RegisterUser:
+    properties:
+      password:
+        description: 密码
+        example: zxl222@asas
+        type: string
+      tel:
+        description: 手机号
+        example: "18011329010"
+        type: string
+      userEmail:
+        description: 用户邮箱
+        example: zhangsan@163.com
+        type: string
+      username:
+        description: 用户名称
+        example: zhangsan
+        type: string
+    type: object
+  models.Result:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  models.UsersInfo:
+    properties:
+      empName:
+        description: 雇员名称
+        type: string
+      empNo:
+        description: 雇员编号
+        type: string
+      userEmail:
+        description: 用户邮箱
+        type: string
+      userId:
+        description: 用户Id
+        type: integer
+      userName:
+        description: 用户名称
+        type: string
+      userType:
+        description: 用户类型
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /auths/login:
+    post:
+      consumes:
+      - application/json
+      description: 登录
+      parameters:
+      - description: 登录参数
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginUsers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: 登录接口
+      tags:
+      - 认证
+  /customers/query:
+    get:
+      consumes:
+      - application/json
+      description: 查询客户信息
+      parameters:
+      - example: 1
+        in: query
+        name: currentIndex
+        type: integer
+      - example: 客户名称
+        in: query
+        name: customerName
+        type: string
+      - example: 10
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: 查询客户信息
+      tags:
+      - 客户
+  /orders/newOrders:
+    post:
+      consumes:
+      - application/json
+      description: 新增订单/编辑订单
+      parameters:
+      - description: 新增订单/编辑订单
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.NewOrderModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Result'
+      summary: 新增订单/编辑订单
+      tags:
+      - 订单
+  /orders/query:
+    get:
+      consumes:
+      - application/json
+      description: 查询订单信息
+      parameters:
+      - example: 1
+        in: query
+        name: currentIndex
+        type: integer
+      - example: 10
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: 查询订单信息
+      tags:
+      - 订单
+  /users/getUsers:
+    get:
+      consumes:
+      - application/json
+      description: 根据用户ID获取用户信息
+      parameters:
+      - default: "1"
+        description: 登录参数
+        in: query
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UsersInfo'
+      summary: 获取用户信息
+      tags:
+      - 用户
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: 注册用户
+      parameters:
+      - description: 注册用户信息
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Result'
+      summary: 注册用户
+      tags:
+      - 用户
+swagger: "2.0"
