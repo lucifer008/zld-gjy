@@ -7,7 +7,7 @@ import (
 )
 
 func addCustomerRouters(rg *gin.RouterGroup) {
-	rg.GET("/dao", func(context *gin.Context) {
+	rg.GET("/query", func(context *gin.Context) {
 		var customer models.Customers
 		context.ShouldBindQuery(&customer)
 		total, data, err := action.CustomerActions.Query(customer)

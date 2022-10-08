@@ -20,14 +20,14 @@ type CustomerAction struct {
 
 // Query
 //@Summary 查询客户信息
-// @Schemes
-// @Description 查询客户信息
-// @Tags 客户
-// @Param q dao models.Customers true "查询参数"
-// @Accept json
-// @Produce json
-// @Success 200
-// @Router /customers/dao [get]
+//@Schemes
+//@Description 查询客户信息
+//@Tags 客户
+//@Param q query models.Customers true "查询参数"
+//@Accept json
+//@Produce json
+//@Success 200
+//@Router /customers/query [get]
 func (customerAction CustomerAction) Query(customers models.Customers) (total int64, data []models.CustomerModel, err error) {
 	qur := dao.Use(base.DB)
 	if customers.CustomerName != "" {

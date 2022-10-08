@@ -28,7 +28,7 @@ type UsersAction struct {
 // @Tags 用户
 // @Schemes
 // @Description 根据用户ID获取用户信息
-// @Param userId dao  string true "登录参数" default(1)
+// @Param userId query  string true "登录参数" default(1)
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.UsersInfo
