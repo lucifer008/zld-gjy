@@ -16,7 +16,7 @@ golang版本
 #### 安装教程
 
 1.  下载go版本1.18,设置环境变量
-2.  go install | go mod tidy | go init zld-jy
+2.  go install | go init zld-jy |  go mod tidy
 3.  go build  main.go con ./app.yml
 
 #### 使用说明
