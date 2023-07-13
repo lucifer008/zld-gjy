@@ -6,7 +6,7 @@ db:
   driver: mysql
   port: 3306
   dbname: zld
-  host: 82.157.168.170
+  host: 212.129.252.153
   username: root
   password: zxl_19831313#@@Qqqq
   other: charset=utf8mb4&parseTime=True

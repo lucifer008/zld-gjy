@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	"github.com/go-redis/redis"
 	"log"
 	"zld-jy/config"
 )
@@ -22,13 +23,13 @@ func InitRedis() {
 	log.Println(">>>>>>>Redis初始化成功>>>>>>>>>")
 }
 func Set(key string, val interface{}) {
-	err := rdb.Set(ctx, key, val, 0).Err()
+	err := rdb.Set(key, val, 0).Err()
 	if err != nil {
 		panic(err)
 	}
 }
 func Get(key string) string {
-	val, err := rdb.Get(ctx, key).Result()
+	val, err := rdb.Get(key).Result()
 	if err != nil {
 		panic(err)
 	}
