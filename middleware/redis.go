@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"context"
-	"github.com/go-redis/redis/v9"
 	"log"
 	"zld-jy/config"
 )
